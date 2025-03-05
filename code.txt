@@ -1,0 +1,40 @@
+void main()  // VOID_TOKEN MAIN_TOKEN
+
+{
+    /* This is a long 
+    comment **/
+    
+    int a sum; // INT_TOKEN IDENTIFIER_TOKEN SEMICOLON_TOKEN
+
+    a = 10;  // IDENTIFIER_TOKEN ASSIGNMENT_TOKEN INTEGER_TOKEN SEMICOLON_TOKEN
+    b = 20;  
+
+    // Testing relational operators
+    if (a < b)  // IDENTIFIER_TOKEN LESS_TOKEN IDENTIFIER_TOKEN LPAREN_TOKEN RPAREN_TOKEN
+    {
+        a <= b; // LESSEQUAL_TOKEN
+        a > b;  // GREATER_TOKEN
+        a >= b; // GREATEREQUAL_TOKEN
+        a == b; // EQUAL_TOKEN
+        a != b; // NOTEQUAL_TOKEN
+    }
+
+    // Testing arithmetic operators
+    sum = a + b;  // PLUS_TOKEN
+    sum = a - b;  // MINUS_TOKEN
+    sum = a * b;  // TIMES_TOKEN
+    sum = a / b;  // DIVIDE_TOKEN
+
+    // Testing other characters
+    { // LCURLY_TOKEN
+        sum = 100;  
+    } // RCURLY_TOKEN
+
+    // Testing output
+    cout << sum;  // COUT_TOKEN INSERTION_TOKEN IDENTIFIER_TOKEN SEMICOLON_TOKEN
+
+    // Special cases
+    int var123 = 99;  // IDENTIFIER_TOKEN
+    
+    // Testing EOF handling
+} // ENDFILE_TOKEN

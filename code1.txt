@@ -1,0 +1,9 @@
+void main()
+{
+    /* This Test *1/2{(
+    )}3 is 4 long comments */
+    int sum;
+    sum = 35 + 400;
+    // Testing short 34*/
+    cout << sum;
+}
