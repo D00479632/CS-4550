@@ -4,8 +4,8 @@
 #include <iostream>
 #include "Parser.h"
 
-void TestParser() {
-    std::cout << "Running TestParser...\n";
+void TestParserNoOutput() {
+    std::cout << "Running TestParserNoOutput...\n";
     ScannerClass scanner("code1.txt");
     SymbolTableClass symbolTable;
     ParserClass parser(&scanner, &symbolTable);
@@ -17,9 +17,26 @@ void TestParser() {
         std::cerr << "TestParser failed!\n\n";
     }
 }
+    
+void TestParserOutput() {
+    std::cout << "Running TestParserOutput...\n";
+    ScannerClass scanner("code1.txt");
+    SymbolTableClass st;
+    ParserClass p(&scanner, &st);
+
+    try {
+        StartNode* s = p.Start();  
+        std::cout << "TestParser passed!\n\n";
+        delete s;
+    } catch (...) {
+        std::cerr << "TestParser failed!\n\n";
+    }
+
+}
 
 int main() {
-    TestParser();
+    TestParserNoOutput();
+    TestParserOutput();
     return 0;
 }
 

@@ -4,7 +4,7 @@ void main()  // VOID_TOKEN MAIN_TOKEN
     /* This is a long 
     comment **/
     
-    int a sum; // INT_TOKEN IDENTIFIER_TOKEN SEMICOLON_TOKEN
+    int a; // INT_TOKEN IDENTIFIER_TOKEN SEMICOLON_TOKEN
 
     a = 10;  // IDENTIFIER_TOKEN ASSIGNMENT_TOKEN INTEGER_TOKEN SEMICOLON_TOKEN
     b = 20;  
