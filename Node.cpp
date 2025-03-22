@@ -11,6 +11,7 @@ StartNode::StartNode(ProgramNode* node)
 }
 
 StartNode::~StartNode() {
+    MSG("Deleting startNode");
     delete mProgramNode; // Clean up the ProgramNode pointer
 }
 
@@ -19,7 +20,7 @@ ProgramNode::ProgramNode(BlockNode* node)
 }
 
 ProgramNode::~ProgramNode() {
-    MSG("ProgramNode is deleting BlockNode");
+    MSG("Deleting programNode");
     delete mBlockNode;
 }
 
@@ -29,7 +30,7 @@ BlockNode::BlockNode(StatementGroupNode* node)
 }
 
 BlockNode::~BlockNode() {
-    MSG("BlockNode is deleting StatementGroupNode");
+    MSG("Deleting blockNode");
     delete mStatementGroupNode;
 }
 
@@ -40,7 +41,7 @@ StatementGroupNode::StatementGroupNode() {
 StatementGroupNode::~StatementGroupNode() {
     // Delete all statements in the vector
     for (StatementNode* statement : mStatements) {
-        MSG("Deleting statement in Statements.");
+        MSG("Deleting statementNode");
         delete statement;
     }
 }
@@ -59,7 +60,7 @@ DeclarationStatementNode::DeclarationStatementNode(IdentifierNode* identifier)
 }
 
 DeclarationStatementNode::~DeclarationStatementNode() {
-    MSG("DeclarationStatementNode is deleting IdentifierNode");
+    MSG("Deleting DeclarationStatementNode");
     delete mIdentifierNode;
 }
 
@@ -68,7 +69,7 @@ AssignmentStatementNode::AssignmentStatementNode(IdentifierNode* identifier, Exp
 }
 
 AssignmentStatementNode::~AssignmentStatementNode() {
-    MSG("AssignmentStatementNode is deleting IdentifierNode and ExpressionNode");
+    MSG("Deleting AssignmentStatementNode");
     delete mIdentifierNode;
     delete mExpressionNode;
 }
@@ -78,7 +79,7 @@ CoutStatementNode::CoutStatementNode(ExpressionNode* expression)
 }
 
 CoutStatementNode::~CoutStatementNode() {
-    MSG("CoutStatementNode is deleting ExpressionNode");
+    MSG("Deleting CoutStatementNode");
     delete mExpressionNode;
 }
 
@@ -117,7 +118,7 @@ BinaryOperatorNode::BinaryOperatorNode(ExpressionNode* left, ExpressionNode* rig
 }
 
 BinaryOperatorNode::~BinaryOperatorNode() {
-    MSG("BinaryOperatorNode is deleting Left and Right");
+    MSG("Deleting BinaryOperatorNode");
     delete mLeft;
     delete mRight;
 }
