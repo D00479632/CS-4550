@@ -46,6 +46,10 @@ StatementNode * ParserClass::Statement() {
         return CoutStatement();
     } else if (tt == LCURLY_TOKEN) {
         return Block();
+    } else if (tt == IF_TOKEN) {
+        return IfStatement();
+    } else if (tt == WHILE_TOKEN) {
+        return WhileStatement();
     }
     return nullptr;
 }
@@ -73,8 +77,36 @@ CoutStatementNode * ParserClass::CoutStatement() {
     return new CoutStatementNode(expressionNode);
 }
 
+// Expression -> Or -> And -> Relational -> PlusMinus -> TimesDivide -> Exponent -> Factor.
+
 ExpressionNode * ParserClass::Expression() {
-    return Relational();
+    return Or();
+}
+
+ExpressionNode * ParserClass::Or() {
+    ExpressionNode *current = And();
+    while (true) {
+        TokenType tt = mScanner->PeekNextToken().GetTokenType();
+        if (tt == OR_TOKEN) {
+            Match(tt);
+            current = new OrNode(current, And());
+        } else {
+            return current;
+        }
+    }
+}
+
+ExpressionNode * ParserClass::And() {
+    ExpressionNode *current = Relational();
+    while (true) {
+        TokenType tt = mScanner->PeekNextToken().GetTokenType();
+        if (tt == AND_TOKEN) {
+            Match(tt);
+            current = new AndNode(current, Relational());
+        } else {
+            return current;
+        }
+    }
 }
 
 ExpressionNode * ParserClass::Relational() {
@@ -151,6 +183,24 @@ IdentifierNode * ParserClass::Identifier() {
 IntegerNode * ParserClass::Integer() {
     TokenClass token = Match(INTEGER_TOKEN);
     return new IntegerNode(atoi(token.GetLexeme().c_str()));
+}
+
+IfStatementNode* ParserClass::IfStatement() {
+    Match(IF_TOKEN);
+    Match(LPAREN_TOKEN);
+    ExpressionNode* condition = Expression();
+    Match(RPAREN_TOKEN);
+    StatementNode* thenStatement = Statement();
+    return new IfStatementNode(condition, thenStatement);
+}
+
+WhileStatementNode* ParserClass::WhileStatement() {
+    Match(WHILE_TOKEN);
+    Match(LPAREN_TOKEN);
+    ExpressionNode* condition = Expression();
+    Match(RPAREN_TOKEN);
+    StatementNode* body = Statement();
+    return new WhileStatementNode(condition, body);
 }
 
 TokenClass ParserClass::Match(TokenType expectedType) {

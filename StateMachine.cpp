@@ -69,6 +69,14 @@ StateMachineClass::StateMachineClass() {
     
     mLegalMoves[GREADER_THAN_STATE][EQUAL_CHAR] = GREADER_EQUAL_STATE;
 
+    // Add new legal moves from START_STATE
+    mLegalMoves[START_STATE][AND_CHAR] = AND_STATE;
+    mLegalMoves[START_STATE][OR_CHAR] = OR_STATE;
+
+    // Add transitions for double characters
+    mLegalMoves[AND_STATE][AND_CHAR] = DOUBLE_AND_STATE;
+    mLegalMoves[OR_STATE][OR_CHAR] = DOUBLE_OR_STATE;
+
     // Initializing mCorrespondingTokenTypes
     // First, initialize all states to correspond to BAD_TOKEN.
     for(int i = 0; i < LAST_STATE; i++) {
@@ -96,6 +104,8 @@ StateMachineClass::StateMachineClass() {
     mCorrespondingTokenTypes[LEFT_CURLY_STATE] = LCURLY_TOKEN;
     mCorrespondingTokenTypes[TIMES_STATE] = TIMES_TOKEN;
     mCorrespondingTokenTypes[MINUS_STATE] = MINUS_TOKEN;
+    mCorrespondingTokenTypes[DOUBLE_AND_STATE] = AND_TOKEN;
+    mCorrespondingTokenTypes[DOUBLE_OR_STATE] = OR_TOKEN;
 }
 
 MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & previousTokenType) {
@@ -146,6 +156,10 @@ MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & p
         charType = RIGHT_CURLY_CHAR;
     else if (currentCharacter == '-')
         charType = MINUS_CHAR;
+    else if (currentCharacter == '&')
+        charType = AND_CHAR;
+    else if (currentCharacter == '|')
+        charType = OR_CHAR;
     else 
         charType = BAD_CHAR;
 

@@ -34,9 +34,27 @@ void TestParserOutput() {
 
 }
 
+void TestInterpreter() {
+    std::cout << "Running Interpreter Test...\n";
+    ScannerClass scanner("code1.txt");
+    SymbolTableClass symbolTable;
+    ParserClass parser(&scanner, &symbolTable);
+
+    try {
+        StartNode* start = parser.Start();
+        std::cout << "Parsing completed successfully. Starting interpretation...\n";
+        start->Interpret();
+        std::cout << "\nInterpretation completed successfully!\n\n";
+        delete start;
+    } catch (...) {
+        std::cerr << "Error during parsing or interpretation!\n\n";
+    }
+}
+
 int main() {
     TestParserNoOutput();
     TestParserOutput();
+    TestInterpreter();
     return 0;
 }
 

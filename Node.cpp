@@ -204,3 +204,81 @@ NotEqualNode::NotEqualNode(ExpressionNode* left, ExpressionNode* right)
 int NotEqualNode::Evaluate() {
     return mLeft->Evaluate() != mRight->Evaluate() ? 1 : 0;
 }
+
+void StartNode::Interpret() {
+    mProgramNode->Interpret();
+}
+
+void ProgramNode::Interpret() {
+    mBlockNode->Interpret();
+}
+
+void BlockNode::Interpret() {
+    mStatementGroupNode->Interpret();
+}
+
+void StatementGroupNode::Interpret() {
+    for (StatementNode* statement : mStatements) {
+        statement->Interpret();
+    }
+}
+
+void DeclarationStatementNode::Interpret() {
+    mIdentifierNode->DeclareVariable();
+}
+
+void AssignmentStatementNode::Interpret() {
+    int value = mExpressionNode->Evaluate();
+    mIdentifierNode->SetValue(value);
+}
+
+void CoutStatementNode::Interpret() {
+    int value = mExpressionNode->Evaluate();
+    std::cout << value << " ";
+}
+
+IfStatementNode::IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement)
+    : mCondition(condition), mThenStatement(thenStatement) {
+}
+
+IfStatementNode::~IfStatementNode() {
+    delete mCondition;
+    delete mThenStatement;
+}
+
+void IfStatementNode::Interpret() {
+    if (mCondition->Evaluate() != 0) {
+        mThenStatement->Interpret();
+    }
+}
+
+WhileStatementNode::WhileStatementNode(ExpressionNode* condition, StatementNode* body)
+    : mCondition(condition), mBody(body) {
+}
+
+WhileStatementNode::~WhileStatementNode() {
+    delete mCondition;
+    delete mBody;
+}
+
+void WhileStatementNode::Interpret() {
+    while (mCondition->Evaluate() != 0) {
+        mBody->Interpret();
+    }
+}
+
+AndNode::AndNode(ExpressionNode* left, ExpressionNode* right)
+    : BinaryOperatorNode(left, right) {
+}
+
+int AndNode::Evaluate() {
+    return (mLeft->Evaluate() && mRight->Evaluate()) ? 1 : 0;
+}
+
+OrNode::OrNode(ExpressionNode* left, ExpressionNode* right)
+    : BinaryOperatorNode(left, right) {
+}
+
+int OrNode::Evaluate() {
+    return (mLeft->Evaluate() || mRight->Evaluate()) ? 1 : 0;
+}

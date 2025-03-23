@@ -16,7 +16,10 @@ enum TokenType {
     // Other Characters:
     SEMICOLON_TOKEN, LPAREN_TOKEN, RPAREN_TOKEN, LCURLY_TOKEN, RCURLY_TOKEN,
     // Other Token Types:
-    IDENTIFIER_TOKEN, INTEGER_TOKEN, BAD_TOKEN, ENDFILE_TOKEN
+    IDENTIFIER_TOKEN, INTEGER_TOKEN, BAD_TOKEN, ENDFILE_TOKEN,
+    // Add new tokens
+    IF_TOKEN, WHILE_TOKEN,
+    AND_TOKEN, OR_TOKEN,  // For '&&' and '||' operators
 };
 
 // IMPORTANT: The list above and the list below MUST be kept in sync.
@@ -25,7 +28,9 @@ const std::string gTokenTypeNames[] = {
 "LESS", "LESSEQUAL", "GREATER", "GREATEREQUAL", "EQUAL", "NOTEQUAL",
 "INSERTION", "ASSIGNMENT", "PLUS", "MINUS", "TIMES", "DIVIDE",
 "SEMICOLON", "LPAREN", "RPAREN", "LCURLY", "RCURLY",
-"IDENTIFIER", "INTEGER", "BAD", "ENDFILE"
+"IDENTIFIER", "INTEGER", "BAD", "ENDFILE",
+"IF", "WHILE",
+"AND", "OR"
 };
 
 // Now you can access the name given the enum using: gTokenTypeNames[mType] because mType is an integer

@@ -6,4 +6,20 @@ void main()
     sum = 35 + 400;
     // Testing short 34*/
     cout << sum;
+
+    int x;
+    int y;
+    
+    x = 5;
+    y = 10;
+    
+    // Test AND operator
+    if (x < 10 && y == 10) {
+        cout << 1;
+    }
+    
+    // Test OR operator
+    if (x > 10 || y == 10) {
+        cout << 2;    
+    }
 }

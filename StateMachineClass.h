@@ -32,6 +32,10 @@ enum MachineState {
     LEFT_CURLY_STATE, // 23
     TIMES_STATE, // 24
     MINUS_STATE, // 25
+    AND_STATE,        // 26
+    DOUBLE_AND_STATE, // 27
+    OR_STATE,         // 28
+    DOUBLE_OR_STATE,  // 29
     
     LAST_STATE // Ensure this is the last state
 };
@@ -57,6 +61,8 @@ enum CharacterType {
     LEFT_CURLY_CHAR,
     RIGHT_CURLY_CHAR,
     MINUS_CHAR,
+    AND_CHAR,    
+    OR_CHAR,     
 
     LAST_CHAR // Ensure this is the last character type
 };

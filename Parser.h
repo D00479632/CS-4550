@@ -21,18 +21,28 @@ private:
     AssignmentStatementNode* AssignmentStatement();
     CoutStatementNode* CoutStatement();
 
+
     // Expression Parsing Methods
     ExpressionNode* Expression();
+    // New expression parsing methods for AND/OR operators
+    ExpressionNode* Or();
+    ExpressionNode* And();
     ExpressionNode* Relational();
     ExpressionNode* PlusMinus();
     ExpressionNode* TimesDivide();
+    // Exponent will go here
     ExpressionNode* Factor();
     
     // Helper Methods
     IdentifierNode* Identifier();
     IntegerNode* Integer();
     
-    void Error(const std::string& message);
+    // New statement parsing If and While
+    IfStatementNode* IfStatement();
+    WhileStatementNode* WhileStatement();
+
     TokenClass Match(TokenType expectedType);
+    void Error(const std::string& message);
+
 };
 

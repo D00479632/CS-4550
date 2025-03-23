@@ -19,6 +19,7 @@ class SymbolTableClass;
 class Node {
 public:
     virtual ~Node(); // Virtual destructor
+    virtual void Interpret() = 0; // New pure virtual method
 };
 
 // Derive StartNode from Node
@@ -26,6 +27,7 @@ class StartNode : public Node {
 public:
     StartNode(ProgramNode* node); 
     virtual ~StartNode(); 
+    virtual void Interpret(); // New method
 
 private:
     ProgramNode* mProgramNode; 
@@ -36,6 +38,7 @@ class ProgramNode : public Node {
 public:
     ProgramNode(BlockNode* node);
     virtual ~ProgramNode();
+    virtual void Interpret(); // New method
 
 private:
     BlockNode* mBlockNode;
@@ -47,6 +50,7 @@ public:
     StatementGroupNode();
     // It loops through each StatementNode pointer, calling delete on each one.
     virtual ~StatementGroupNode();
+    virtual void Interpret(); // New method
     // takes as a parameter a StatementNode pointer and adds it to the vector.
     void AddStatement(StatementNode* statement);
 
@@ -58,6 +62,10 @@ private:
 class StatementNode : public Node {
 public:
     virtual ~StatementNode();
+    // Pure virtual because a "generic" statement has no meaning;
+    // every statement must be a specific type (declaration, assignment, if, while, etc.)
+    // and must provide its own interpretation logic
+    virtual void Interpret() = 0;
 };
 
 // Derive BlockNode from StatementNode
@@ -65,6 +73,7 @@ class BlockNode : public StatementNode {
 public:
     BlockNode(StatementGroupNode* node);
     virtual ~BlockNode();
+    virtual void Interpret(); 
 
 private:
     StatementGroupNode* mStatementGroupNode;
@@ -74,6 +83,7 @@ class DeclarationStatementNode : public StatementNode {
 public:
     DeclarationStatementNode(IdentifierNode* identifier);
     virtual ~DeclarationStatementNode();
+    virtual void Interpret();
 
 private:
     IdentifierNode* mIdentifierNode;
@@ -83,6 +93,7 @@ class AssignmentStatementNode : public StatementNode {
 public:
     AssignmentStatementNode(IdentifierNode* identifier, ExpressionNode* expression);
     virtual ~AssignmentStatementNode();
+    virtual void Interpret();
 
 private:
     IdentifierNode* mIdentifierNode;
@@ -94,6 +105,7 @@ class CoutStatementNode : public StatementNode {
 public:
     CoutStatementNode(ExpressionNode* expression);
     virtual ~CoutStatementNode();
+    virtual void Interpret();
 
 private:
     ExpressionNode* mExpressionNode;
@@ -197,5 +209,39 @@ public:
 class NotEqualNode : public BinaryOperatorNode {
 public:
     NotEqualNode(ExpressionNode* left, ExpressionNode* right);
+    virtual int Evaluate();
+};
+
+class IfStatementNode : public StatementNode {
+public:
+    IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement);
+    virtual ~IfStatementNode();
+    virtual void Interpret();
+
+private:
+    ExpressionNode* mCondition;
+    StatementNode* mThenStatement;
+};
+
+class WhileStatementNode : public StatementNode {
+public:
+    WhileStatementNode(ExpressionNode* condition, StatementNode* body);
+    virtual ~WhileStatementNode();
+    virtual void Interpret();
+
+private:
+    ExpressionNode* mCondition;
+    StatementNode* mBody;
+};
+
+class AndNode : public BinaryOperatorNode {
+public:
+    AndNode(ExpressionNode* left, ExpressionNode* right);
+    virtual int Evaluate();
+};
+
+class OrNode : public BinaryOperatorNode {
+public:
+    OrNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
 };
