@@ -22,4 +22,12 @@ void main()
     if (x > 10 || y == 10) {
         cout << 2;    
     }
+
+    // Test while loop
+    int i;
+    i = 0;
+    while (i < 3) {
+        cout << i;
+        i = i + 1;
+    }
 }
