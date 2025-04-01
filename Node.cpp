@@ -55,13 +55,24 @@ StatementNode::~StatementNode() {
 }
 
 // DeclarationStatementNode implementation
-DeclarationStatementNode::DeclarationStatementNode(IdentifierNode* identifier) 
-    : mIdentifierNode(identifier) {
+DeclarationStatementNode::DeclarationStatementNode(IdentifierNode* identifier, ExpressionNode* initExpression) 
+    : mIdentifierNode(identifier), mInitializationExpression(initExpression) {
 }
 
 DeclarationStatementNode::~DeclarationStatementNode() {
     MSG("Deleting DeclarationStatementNode");
     delete mIdentifierNode;
+    if (mInitializationExpression) {
+        delete mInitializationExpression;
+    }
+}
+
+void DeclarationStatementNode::Interpret() {
+    mIdentifierNode->DeclareVariable();
+    if (mInitializationExpression) {
+        int value = mInitializationExpression->Evaluate();
+        mIdentifierNode->SetValue(value);
+    }
 }
 
 AssignmentStatementNode::AssignmentStatementNode(IdentifierNode* identifier, ExpressionNode* expression)
@@ -221,10 +232,6 @@ void StatementGroupNode::Interpret() {
     for (StatementNode* statement : mStatements) {
         statement->Interpret();
     }
-}
-
-void DeclarationStatementNode::Interpret() {
-    mIdentifierNode->DeclareVariable();
 }
 
 void AssignmentStatementNode::Interpret() {

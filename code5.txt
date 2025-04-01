@@ -1,0 +1,9 @@
+void main()
+{
+    int x;
+    ;           // empty statement
+    x = 5;   ;  // statement followed by empty statement
+    if (x==6)
+        ;       // empty statement as if body
+    cout << x;  // should print 5
+}

@@ -36,7 +36,7 @@ void TestParserOutput() {
 
 void TestInterpreter() {
     std::cout << "Running Interpreter Test...\n";
-    ScannerClass scanner("code1.txt");
+    ScannerClass scanner("code5.txt");
     SymbolTableClass symbolTable;
     ParserClass parser(&scanner, &symbolTable);
 
@@ -52,8 +52,8 @@ void TestInterpreter() {
 }
 
 int main() {
-    TestParserNoOutput();
-    TestParserOutput();
+    //TestParserNoOutput();
+    //TestParserOutput();
     TestInterpreter();
     return 0;
 }

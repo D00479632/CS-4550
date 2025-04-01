@@ -81,12 +81,13 @@ private:
 
 class DeclarationStatementNode : public StatementNode {
 public:
-    DeclarationStatementNode(IdentifierNode* identifier);
+    DeclarationStatementNode(IdentifierNode* identifier, ExpressionNode* initExpression = nullptr);
     virtual ~DeclarationStatementNode();
     virtual void Interpret();
 
 private:
     IdentifierNode* mIdentifierNode;
+    ExpressionNode* mInitializationExpression;
 };
 
 class AssignmentStatementNode : public StatementNode {
@@ -244,4 +245,10 @@ class OrNode : public BinaryOperatorNode {
 public:
     OrNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+};
+
+// Problem 2 midterm2: Added NullStatementNode to support empty statements
+class NullStatementNode : public StatementNode {
+public:
+    virtual void Interpret() { } // Does nothing when interpreted
 };

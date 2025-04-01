@@ -17,9 +17,23 @@ void main()
     if (x < 10 && y == 10) {
         cout << 1;
     }
-    
+
     // Test OR operator
     if (x > 10 || y == 10) {
+        cout << 2;    
+    }
+
+    x = 90;
+    y = 10;
+    
+    // Test AND operator
+    if (x < 10 && y == 10) {
+        cout << 1;
+    }
+
+    y = 9;
+    // Test OR operator
+    if (x < 10 || y == 10) {
         cout << 2;    
     }
 

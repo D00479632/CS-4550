@@ -50,6 +50,9 @@ StatementNode * ParserClass::Statement() {
         return IfStatement();
     } else if (tt == WHILE_TOKEN) {
         return WhileStatement();
+    } else if (tt == SEMICOLON_TOKEN) {
+        Match(SEMICOLON_TOKEN);
+        return new NullStatementNode();
     }
     return nullptr;
 }
@@ -57,8 +60,15 @@ StatementNode * ParserClass::Statement() {
 DeclarationStatementNode * ParserClass::DeclarationStatement() {
     Match(INT_TOKEN);
     IdentifierNode *identifierNode = Identifier();
+    
+    ExpressionNode* initExpression = nullptr;
+    if (mScanner->PeekNextToken().GetTokenType() == ASSIGNMENT_TOKEN) {
+        Match(ASSIGNMENT_TOKEN);
+        initExpression = Expression();
+    }
+    
     Match(SEMICOLON_TOKEN);
-    return new DeclarationStatementNode(identifierNode);
+    return new DeclarationStatementNode(identifierNode, initExpression);
 }
 
 AssignmentStatementNode * ParserClass::AssignmentStatement() {
