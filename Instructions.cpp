@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <stdio.h>  // For printf
 #include "Instructions.h"
 
 // Some assembly like definitions for our machine code:
@@ -357,6 +358,15 @@ unsigned char * InstructionsClass::Jump()
 void InstructionsClass::SetOffset(unsigned char * codeAddress, int offset)
 {
     *((int*)codeAddress) = offset;
+}
+
+// Problem 14 - Debug method to print all machine codes
+void InstructionsClass::PrintAllMachineCodes()
+{
+    for (int i = 0; i < mCurrent; i++)
+    {
+        printf("HEX: %2x Decimal: %3i\n", (int)mCode[i], (int)mCode[i]);
+    }
 }
 
 // Helper method to get the current address in mCode

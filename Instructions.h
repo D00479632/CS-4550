@@ -36,6 +36,9 @@ public:
     unsigned char * Jump();
     void SetOffset(unsigned char * codeAddress, int offset);
     
+    // Problem 14 - Debug method
+    void PrintAllMachineCodes();
+    
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
     void WriteSpaceLinux64();
