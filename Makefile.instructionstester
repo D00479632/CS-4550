@@ -1,1 +1,2 @@
-g++ -o InstructionsTester Instructions.cpp InstructionsTester.cpp 
+all:
+	g++ -o InstructionsTester Instructions.cpp InstructionsTester.cpp 
