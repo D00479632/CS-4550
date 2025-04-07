@@ -4,6 +4,9 @@ class InstructionsClass
 public:
     InstructionsClass();
     void Encode(unsigned char c);
+    void Encode(int x);
+    void Encode(long long x);
+    void Encode(void * p);
     void Finish();
     void Execute();
 private:

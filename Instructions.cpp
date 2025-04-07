@@ -26,6 +26,52 @@ void InstructionsClass::Encode(unsigned char c)
     }
 }
 
+// 2.a - Encode an integer (4 bytes)
+void InstructionsClass::Encode(int x)
+{
+    if(mCurrent + sizeof(int) < MAX_INSTRUCTIONS)
+    {
+        *((int*)(&(mCode[mCurrent]))) = x;
+        mCurrent += sizeof(int);
+    }
+    else
+    {
+        std::cerr << "Error. Used up all " << MAX_INSTRUCTIONS
+                  << " instructions." << std::endl;
+        exit(1);
+    }
+}
+
+// 2.b - Encode a long long (8 bytes)
+void InstructionsClass::Encode(long long x)
+{
+    if(mCurrent + sizeof(long long) < MAX_INSTRUCTIONS)
+    {
+        *((long long*)(&(mCode[mCurrent]))) = x;
+        mCurrent += sizeof(long long);
+    }
+    else
+    {
+        std::cerr << "Error. Used up all " << MAX_INSTRUCTIONS
+                  << " instructions." << std::endl;
+        exit(1);
+    }
+}
+
+// 2.c - Encode a pointer (4 or 8 bytes)
+void InstructionsClass::Encode(void * p)
+{
+    int pointerSize = sizeof(p);
+    if (pointerSize == 4)
+    {
+        Encode((int)(long long)p);
+    }
+    else if(pointerSize == 8)
+    {
+        Encode((long long)p);
+    }
+}
+
 InstructionsClass::InstructionsClass()
 {
     mprotect((void *)((uintptr_t)mCode& ~(sysconf(_SC_PAGE_SIZE)-1)),
