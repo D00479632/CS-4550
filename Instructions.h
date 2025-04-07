@@ -7,6 +7,7 @@ public:
     void Encode(int x);
     void Encode(long long x);
     void Encode(void * p);
+    void PushValue(int value);
     void Finish();
     void Execute();
 private:

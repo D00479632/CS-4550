@@ -18,6 +18,10 @@ const unsigned char POP_EDI = 0x5F;
 const unsigned char POP_ESI = 0x5E;
 const unsigned char POP_EBX = 0x5B;
 
+// Problem 4 - Constants for pushing values to the stack
+const unsigned char IMMEDIATE_TO_EAX = 0xB8; // followed by 4 byte address
+const unsigned char PUSH_EAX = 0x50;
+
 // Put one instruction at a time into mCode:
 void InstructionsClass::Encode(unsigned char c)
 {
@@ -78,6 +82,14 @@ void InstructionsClass::Encode(void * p)
     {
         Encode((long long)p);
     }
+}
+
+// Problem 4 - Push a value onto the stack
+void InstructionsClass::PushValue(int value)
+{
+    Encode(IMMEDIATE_TO_EAX);
+    Encode(value);
+    Encode(PUSH_EAX);
 }
 
 InstructionsClass::InstructionsClass()
