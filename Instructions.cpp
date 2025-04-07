@@ -82,6 +82,9 @@ const unsigned char JG = 0x7F;  // Jump if Greater
 const unsigned char JE = 0x74;  // Jump if Equal
 // const unsigned char JNE = 0x75; // Jump if Not Equal (already declared)
 
+// Problem 12 - Constants for logical operators
+const unsigned char JUMP_ALWAYS = 0xEB; // followed by 1 byte value
+
 // Put one instruction at a time into mCode:
 void InstructionsClass::Encode(unsigned char c)
 {
@@ -263,6 +266,60 @@ void InstructionsClass::PopPopEqualPush()
 void InstructionsClass::PopPopNotEqualPush()
 {
     PopPopComparePush(JNE);
+}
+
+// Problem 12 - Logical AND operator (&&)
+void InstructionsClass::PopPopAndPush()
+{
+    Encode(IMMEDIATE_TO_EAX); // load A register with 0
+    Encode(0);
+    Encode(POP_EBX); // load B register with stack item 2
+    Encode(CMP_EAX_EBX1);
+    Encode(CMP_EAX_EBX2);
+    Encode(POP_EBX); // load B register with stack item 1
+    Encode(JE); // if stack item 2 is zero, jump to FALSE code
+    Encode((unsigned char)11);
+    Encode(CMP_EAX_EBX1);
+    Encode(CMP_EAX_EBX2);
+    Encode(JE); // if stack item 1 is zero, jump to FALSE code
+    Encode((unsigned char)7);
+    // TRUE code:
+    Encode(IMMEDIATE_TO_EAX); // load A register with 1
+    Encode(1);
+    Encode(JUMP_ALWAYS); // Jump around FALSE code
+    Encode((unsigned char)5);
+    // FALSE code:
+    Encode(IMMEDIATE_TO_EAX); // load A register with 0
+    Encode(0);
+    // Save A to the stack
+    Encode(PUSH_EAX); // push 1 or 0
+}
+
+// Problem 12 - Logical OR operator (||)
+void InstructionsClass::PopPopOrPush()
+{
+    Encode(IMMEDIATE_TO_EAX); // load A register with 0
+    Encode(0);
+    Encode(POP_EBX); // load B register with stack item 2
+    Encode(CMP_EAX_EBX1);
+    Encode(CMP_EAX_EBX2);
+    Encode(POP_EBX); // load B register with stack item 1
+    Encode(JNE); // if stack item 2 is not zero, jump to TRUE code
+    Encode((unsigned char)11);
+    Encode(CMP_EAX_EBX1);
+    Encode(CMP_EAX_EBX2);
+    Encode(JNE); // if stack item 1 is not zero, jump to TRUE code
+    Encode((unsigned char)7);
+    // FALSE code:
+    Encode(IMMEDIATE_TO_EAX); // load A register with 0
+    Encode(0);
+    Encode(JUMP_ALWAYS); // Jump around TRUE code
+    Encode((unsigned char)5);
+    // TRUE code:
+    Encode(IMMEDIATE_TO_EAX); // load A register with 1
+    Encode(1);
+    // Save A to the stack
+    Encode(PUSH_EAX); // push 1 or 0
 }
 
 // Helper method to get the current address in mCode

@@ -27,6 +27,10 @@ public:
     void PopPopEqualPush();
     void PopPopNotEqualPush();
     
+    // Problem 12 - Logical operators
+    void PopPopAndPush();
+    void PopPopOrPush();
+    
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
     void WriteSpaceLinux64();

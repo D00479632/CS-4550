@@ -126,6 +126,58 @@ int main()
     code.PopPopNotEqualPush();
     code.PopAndWrite(); // should print 1 (5 != 4 is true)
     
+    // Test for Problem 12 - Logical Operators
+    
+    // AND Operator (&&)
+    // Testing true && true = true
+    code.PushValue(1);
+    code.PushValue(1);
+    code.PopPopAndPush();
+    code.PopAndWrite(); // should print 1
+    
+    // Testing true && false = false
+    code.PushValue(1);
+    code.PushValue(0);
+    code.PopPopAndPush();
+    code.PopAndWrite(); // should print 0
+    
+    // Testing false && true = false
+    code.PushValue(0);
+    code.PushValue(1);
+    code.PopPopAndPush();
+    code.PopAndWrite(); // should print 0
+    
+    // Testing false && false = false
+    code.PushValue(0);
+    code.PushValue(0);
+    code.PopPopAndPush();
+    code.PopAndWrite(); // should print 0
+    
+    // OR Operator (||)
+    // Testing true || true = true
+    code.PushValue(1);
+    code.PushValue(1);
+    code.PopPopOrPush();
+    code.PopAndWrite(); // should print 1
+    
+    // Testing true || false = true
+    code.PushValue(1);
+    code.PushValue(0);
+    code.PopPopOrPush();
+    code.PopAndWrite(); // should print 1
+    
+    // Testing false || true = true
+    code.PushValue(0);
+    code.PushValue(1);
+    code.PopPopOrPush();
+    code.PopAndWrite(); // should print 1
+    
+    // Testing false || false = false
+    code.PushValue(0);
+    code.PushValue(0);
+    code.PopPopOrPush();
+    code.PopAndWrite(); // should print 0
+    
     code.Finish();
     code.Execute();
     return 0;
