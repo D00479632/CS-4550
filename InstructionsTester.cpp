@@ -4,20 +4,9 @@ int main()
 {
     InstructionsClass code;
     
-    // Store values in memory
-    *(code.GetMem(0)) = 42;
-    *(code.GetMem(1)) = -123;
-    
-    // Push and print immediate values
-    code.PushValue(-500);
-    code.PopAndWrite();
-    code.PushValue(1000);
-    code.PopAndWrite();
-    
-    // Push and print variables from memory
-    code.PushVariable(0);  // Push the value 42 from memory location 0
-    code.PopAndWrite();
-    code.PushVariable(1);  // Push the value -123 from memory location 1
+    code.PushValue(500); // 500 to stack
+    code.PopAndStore(1); // to slot 1 of mData
+    code.PushVariable(1); // from mData back onto stack
     code.PopAndWrite();
     
     code.Finish();

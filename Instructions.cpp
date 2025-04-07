@@ -142,6 +142,14 @@ void InstructionsClass::PushVariable(int index)
     Encode(PUSH_EAX);
 }
 
+// Problem 8 - Pop a value from the stack and store it in memory
+void InstructionsClass::PopAndStore(int index)
+{
+    Encode(POP_EAX);
+    Encode(EAX_TO_MEM);
+    Encode(GetMem(index));
+}
+
 // Helper method to get the current address in mCode
 unsigned char * InstructionsClass::GetAddress()
 {

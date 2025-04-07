@@ -12,6 +12,7 @@ public:
     void PushValue(int value);
     void PushVariable(int index);
     void PopAndWrite();
+    void PopAndStore(int index);
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
     void WriteSpaceLinux64();
