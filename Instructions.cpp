@@ -85,6 +85,11 @@ const unsigned char JE = 0x74;  // Jump if Equal
 // Problem 12 - Constants for logical operators
 const unsigned char JUMP_ALWAYS = 0xEB; // followed by 1 byte value
 
+// Problem 13 - Constants for far jumps
+const unsigned char JE_FAR1 = 0x0f; // 4 byte jump
+const unsigned char JE_FAR2 = 0x84; // 4 byte jump
+const unsigned char JUMP_ALWAYS_FAR = 0xE9; // 4 byte jump
+
 // Put one instruction at a time into mCode:
 void InstructionsClass::Encode(unsigned char c)
 {
@@ -320,6 +325,38 @@ void InstructionsClass::PopPopOrPush()
     Encode(1);
     // Save A to the stack
     Encode(PUSH_EAX); // push 1 or 0
+}
+
+// Problem 13 - Skip if expression is zero (for if/while statements)
+unsigned char * InstructionsClass::SkipIfZeroStack()
+{
+    Encode(POP_EBX);
+    Encode(IMMEDIATE_TO_EAX); // load A register with 0
+    Encode(0);
+    Encode(CMP_EAX_EBX1);
+    Encode(CMP_EAX_EBX2);
+    Encode(JE_FAR1); // If stack had zero, do a jump
+    Encode(JE_FAR2);
+    unsigned char * addressToFillInLater = GetAddress();
+    Encode(0); // the exact number of bytes to skip gets set later,
+               // when we know it! Call SetOffset() to do that.
+    return addressToFillInLater;
+}
+
+// Problem 13 - Unconditional jump (for end of if/while statements)
+unsigned char * InstructionsClass::Jump()
+{
+    Encode(JUMP_ALWAYS_FAR);
+    unsigned char * addressToFillInLater = GetAddress();
+    Encode(0); // the exact number of bytes to jump gets set later,
+               // when we know it! Call SetOffset() to do that.
+    return addressToFillInLater;
+}
+
+// Problem 13 - Set the jump offset for a previously encoded jump instruction
+void InstructionsClass::SetOffset(unsigned char * codeAddress, int offset)
+{
+    *((int*)codeAddress) = offset;
 }
 
 // Helper method to get the current address in mCode

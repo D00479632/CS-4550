@@ -31,6 +31,11 @@ public:
     void PopPopAndPush();
     void PopPopOrPush();
     
+    // Problem 13 - Jump operations
+    unsigned char * SkipIfZeroStack();
+    unsigned char * Jump();
+    void SetOffset(unsigned char * codeAddress, int offset);
+    
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
     void WriteSpaceLinux64();
