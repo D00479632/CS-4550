@@ -134,6 +134,14 @@ void InstructionsClass::PushValue(int value)
     Encode(PUSH_EAX);
 }
 
+// Problem 7 - Push a variable's value from memory onto the stack
+void InstructionsClass::PushVariable(int index)
+{
+    Encode(MEM_TO_EAX);
+    Encode(GetMem(index));
+    Encode(PUSH_EAX);
+}
+
 // Helper method to get the current address in mCode
 unsigned char * InstructionsClass::GetAddress()
 {

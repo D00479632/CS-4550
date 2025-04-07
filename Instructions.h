@@ -10,6 +10,7 @@ public:
     void Encode(long long x);
     void Encode(void * p);
     void PushValue(int value);
+    void PushVariable(int index);
     void PopAndWrite();
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
