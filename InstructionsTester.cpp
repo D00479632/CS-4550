@@ -254,4 +254,4 @@ void testJumpOperations(InstructionsClass &code)
     // This should execute after the jump
     code.PushValue(104);
     code.PopAndWrite();  // Should print 104
-} 
+}
