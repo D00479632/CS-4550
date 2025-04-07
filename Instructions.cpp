@@ -399,4 +399,15 @@ void InstructionsClass::PopAndWrite()
     // Call previously coded function that prints mPrintInteger
     Call((void*) &(mCode[mStartOfPrint]));
     // &(mCode[mStartOfPrint])is where PrintIntegerLinux64 is.
+}
+
+// Problem 6 - Get a pointer to a memory location in the data array
+int * InstructionsClass::GetMem(int index)
+{
+    if (index < 0 || index >= MAX_DATA) {
+        std::cerr << "Error: Memory index " << index << " out of bounds (0-" 
+                  << MAX_DATA-1 << ")" << std::endl;
+        exit(1);
+    }
+    return &(mData[index]);
 } 

@@ -1,4 +1,6 @@
 const int MAX_INSTRUCTIONS = 5000;
+const int MAX_DATA = 5000;
+
 class InstructionsClass
 {
 public:
@@ -14,10 +16,12 @@ public:
     void WriteSpaceLinux64();
     void Call(void * function_address);
     unsigned char * GetAddress();
+    int * GetMem(int index);
     void Finish();
     void Execute();
 private:
     unsigned char mCode[MAX_INSTRUCTIONS];
+    int mData[MAX_DATA];
     int mCurrent; // where we are in mCode
     int mPrintInteger; // Location to store an integer about to be printed.
     int mTempInteger; // Location to store one char of integer to be printed.
