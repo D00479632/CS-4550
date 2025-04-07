@@ -10,6 +10,14 @@ const unsigned char MOV_EBP_ESP2 = 0xEC;
 const unsigned char POP_EBP = 0x5D;
 const unsigned char NEAR_RET = 0xC3;
 
+// Problem 3 - New constants for callee-save registers
+const unsigned char PUSH_EBX = 0x53;
+const unsigned char PUSH_ESI = 0x56;
+const unsigned char PUSH_EDI = 0x57;
+const unsigned char POP_EDI = 0x5F;
+const unsigned char POP_ESI = 0x5E;
+const unsigned char POP_EBX = 0x5B;
+
 // Put one instruction at a time into mCode:
 void InstructionsClass::Encode(unsigned char c)
 {
@@ -82,10 +90,21 @@ InstructionsClass::InstructionsClass()
     Encode(PUSH_EBP);
     Encode(MOV_EBP_ESP1);
     Encode(MOV_EBP_ESP2);
+    
+    // Make sure we save and restore all 5 Callee-Save registers.
+    // That is, EBP, ESP, EBX, ESI, and EDI
+    Encode(PUSH_EBX);
+    Encode(PUSH_ESI);
+    Encode(PUSH_EDI);
 }
 
 void InstructionsClass::Finish()
 {
+    // Restore Callee-Saved registers:
+    Encode(POP_EDI);
+    Encode(POP_ESI);
+    Encode(POP_EBX);
+    
     // All functions end this way:
     Encode(POP_EBP);
     Encode(NEAR_RET);
