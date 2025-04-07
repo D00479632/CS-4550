@@ -150,6 +150,17 @@ void InstructionsClass::PopAndStore(int index)
     Encode(GetMem(index));
 }
 
+// Problem 9 - Pop two values, divide, and push result
+void InstructionsClass::PopPopDivPush()
+{
+    Encode(POP_EBX);
+    Encode(POP_EAX);
+    Encode(CDQ); // Necessary to clear the EDX before the divide.
+    Encode(DIV_EAX_EBX1); // Divide EAX by EBX. Result in EAX.
+    Encode(DIV_EAX_EBX2);
+    Encode(PUSH_EAX);
+}
+
 // Helper method to get the current address in mCode
 unsigned char * InstructionsClass::GetAddress()
 {

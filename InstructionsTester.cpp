@@ -4,10 +4,11 @@ int main()
 {
     InstructionsClass code;
     
-    code.PushValue(500); // 500 to stack
-    code.PopAndStore(1); // to slot 1 of mData
-    code.PushVariable(1); // from mData back onto stack
-    code.PopAndWrite();
+    // Test for Problem 9 - Division
+    code.PushValue(100);
+    code.PushValue(8);
+    code.PopPopDivPush();
+    code.PopAndWrite(); // should print 12
     
     code.Finish();
     code.Execute();
