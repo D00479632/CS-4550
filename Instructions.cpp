@@ -72,6 +72,16 @@ const unsigned char SUB_EAX_EBX2 = 0xC3;
 const unsigned char MUL_EAX_EBX1 = 0xF7;
 const unsigned char MUL_EAX_EBX2 = 0xEB;
 
+// Problem 11 - Constants for relational operators
+const unsigned char CMP_EAX_EBX1 = 0x3B; // compares A and B registers.
+const unsigned char CMP_EAX_EBX2 = 0xC3; // followed by 1 byte value
+const unsigned char JL = 0x7C;  // Jump if Less
+const unsigned char JLE = 0x7E; // Jump if Less or Equal
+const unsigned char JG = 0x7F;  // Jump if Greater
+// const unsigned char JGE = 0x7D; // Jump if Greater or Equal (already declared)
+const unsigned char JE = 0x74;  // Jump if Equal
+// const unsigned char JNE = 0x75; // Jump if Not Equal (already declared)
+
 // Put one instruction at a time into mCode:
 void InstructionsClass::Encode(unsigned char c)
 {
@@ -197,6 +207,62 @@ void InstructionsClass::PopPopMulPush()
     Encode(MUL_EAX_EBX1); // Multiply EAX by EBX. Result in EAX.
     Encode(MUL_EAX_EBX2);
     Encode(PUSH_EAX);
+}
+
+// Problem 11 - Base method for all relational operators
+void InstructionsClass::PopPopComparePush(unsigned char relational_operator)
+{
+    Encode(POP_EBX);
+    Encode(POP_EAX);
+    Encode(CMP_EAX_EBX1);
+    Encode(CMP_EAX_EBX2); // The FLAG register is now set.
+    Encode(IMMEDIATE_TO_EAX); // load A register with 1
+    Encode(1); // assume the result of compare is 1, or TRUE.
+    Encode(relational_operator);
+    // Depending on the FLAG register and this
+    // particular relational_operator,
+    // possibly skip around setting A register
+    // to zero, or FALSE, leaving it at TRUE.
+    Encode((unsigned char)5);
+    Encode(IMMEDIATE_TO_EAX); // load A register with 0
+    Encode(0);
+    Encode(PUSH_EAX); // push 1 or 0
+}
+
+// Less than operator (<)
+void InstructionsClass::PopPopLessPush()
+{
+    PopPopComparePush(JL);
+}
+
+// Less than or equal operator (<=)
+void InstructionsClass::PopPopLessEqualPush()
+{
+    PopPopComparePush(JLE);
+}
+
+// Greater than operator (>)
+void InstructionsClass::PopPopGreaterPush()
+{
+    PopPopComparePush(JG);
+}
+
+// Greater than or equal operator (>=)
+void InstructionsClass::PopPopGreaterEqualPush()
+{
+    PopPopComparePush(JGE);
+}
+
+// Equal operator (==)
+void InstructionsClass::PopPopEqualPush()
+{
+    PopPopComparePush(JE);
+}
+
+// Not equal operator (!=)
+void InstructionsClass::PopPopNotEqualPush()
+{
+    PopPopComparePush(JNE);
 }
 
 // Helper method to get the current address in mCode

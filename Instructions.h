@@ -17,6 +17,16 @@ public:
     void PopPopAddPush();
     void PopPopSubPush();
     void PopPopMulPush();
+    
+    // Problem 11 - Relational operators
+    void PopPopComparePush(unsigned char relational_operator);
+    void PopPopLessPush();
+    void PopPopLessEqualPush();
+    void PopPopGreaterPush();
+    void PopPopGreaterEqualPush();
+    void PopPopEqualPush();
+    void PopPopNotEqualPush();
+    
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
     void WriteSpaceLinux64();
