@@ -14,6 +14,9 @@ public:
     void PopAndWrite();
     void PopAndStore(int index);
     void PopPopDivPush();
+    void PopPopAddPush();
+    void PopPopSubPush();
+    void PopPopMulPush();
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
     void WriteSpaceLinux64();
