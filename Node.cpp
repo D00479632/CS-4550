@@ -309,6 +309,29 @@ void IfStatementNode::Interpret() {
     }
 }
 
+// Problem 7: Code Generator - IfStatementNode implementation
+void IfStatementNode::Code(InstructionsClass &machineCode) {
+    // Generate code to evaluate the condition and leave its value on the stack
+    mCondition->CodeEvaluate(machineCode);
+    
+    // Generate a conditional jump instruction (initially with 0 offset)
+    // and save the address where we need to fill in the offset later
+    unsigned char* insertAddress = machineCode.SkipIfZeroStack();
+    
+    // Save the current address (start of the statement body)
+    unsigned char* address1 = machineCode.GetAddress();
+    
+    // Generate code for the statement body
+    mThenStatement->Code(machineCode);
+    
+    // Save the address after the statement body
+    unsigned char* address2 = machineCode.GetAddress();
+    
+    // Calculate and set the correct jump offset
+    // This is how many bytes to skip if the condition is false
+    machineCode.SetOffset(insertAddress, (int)(address2 - address1));
+}
+
 WhileStatementNode::WhileStatementNode(ExpressionNode* condition, StatementNode* body)
     : mCondition(condition), mBody(body) {
 }
