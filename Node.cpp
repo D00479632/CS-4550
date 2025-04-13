@@ -92,6 +92,23 @@ AssignmentStatementNode::~AssignmentStatementNode() {
     delete mExpressionNode;
 }
 
+void AssignmentStatementNode::Interpret() {
+    int value = mExpressionNode->Evaluate();
+    mIdentifierNode->SetValue(value);
+}
+
+// Problem 5: Code Generator - AssignmentStatementNode implementation
+void AssignmentStatementNode::Code(InstructionsClass &machineCode) {
+    // Generate code to evaluate the expression and leave its value on the stack
+    mExpressionNode->CodeEvaluate(machineCode);
+    
+    // Get the index where this variable is stored in mData
+    int index = mIdentifierNode->GetIndex();
+    
+    // Generate code to pop the value from the stack and store it in mData[index]
+    machineCode.PopAndStore(index);
+}
+
 CoutStatementNode::CoutStatementNode(ExpressionNode* expression) 
     : mExpressionNode(expression) {
 }
@@ -261,11 +278,6 @@ void StatementGroupNode::Code(InstructionsClass &machineCode) {
     for (StatementNode* statement : mStatements) {
         statement->Code(machineCode);
     }
-}
-
-void AssignmentStatementNode::Interpret() {
-    int value = mExpressionNode->Evaluate();
-    mIdentifierNode->SetValue(value);
 }
 
 void CoutStatementNode::Interpret() {
