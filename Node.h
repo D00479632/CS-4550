@@ -1,5 +1,6 @@
 #include <vector> 
 #include <string>
+#include "Instructions.h"
 #pragma once
 
 class Node;
@@ -19,7 +20,9 @@ class SymbolTableClass;
 class Node {
 public:
     virtual ~Node(); // Virtual destructor
-    virtual void Interpret() = 0; // New pure virtual method
+    virtual void Interpret() = 0; // Pure virtual method
+    // Problem 2: Code Generator - Pure virtual method for code generation
+    virtual void Code(InstructionsClass &machineCode) = 0;
 };
 
 // Derive StartNode from Node
@@ -115,7 +118,9 @@ private:
 class ExpressionNode {
 public:
     virtual ~ExpressionNode();
-    virtual int Evaluate() = 0;  // Pure virtual function (= 0)
+    virtual int Evaluate() = 0;  // Pure virtual function
+    // Problem 2: Code Generator - Pure virtual method for code generation
+    virtual void CodeEvaluate(InstructionsClass &machineCode) = 0;
 };
 
 class IntegerNode : public ExpressionNode {
