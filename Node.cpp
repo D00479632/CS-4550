@@ -347,6 +347,38 @@ void WhileStatementNode::Interpret() {
     }
 }
 
+// Problem 8: Code Generator - WhileStatementNode implementation
+void WhileStatementNode::Code(InstructionsClass &machineCode) {
+    // GetAddress 1 - Save the address of the start of the loop (where we test the condition)
+    unsigned char* address1 = machineCode.GetAddress();
+    
+    // Code the While's test expression
+    mCondition->CodeEvaluate(machineCode);
+    
+    // Code SkipIfZeroStack and save the address where we'll need to put the skip offset
+    unsigned char* insertAddressToSkip = machineCode.SkipIfZeroStack();
+    
+    // GetAddress 2 - Save the address of the start of the loop body
+    unsigned char* address2 = machineCode.GetAddress();
+    
+    // Code the While's statement (loop body)
+    mBody->Code(machineCode);
+    
+    // Add unconditional jump back to start of loop and save its address
+    unsigned char* insertAddressToJump = machineCode.Jump();
+    
+    // Get Address 3 - Save the address of the end of the loop
+    unsigned char* address3 = machineCode.GetAddress();
+    
+    // Set the skip offset (how far to jump if condition is false)
+    // This jumps from the SkipIfZeroStack to the end of the loop
+    machineCode.SetOffset(insertAddressToSkip, (int)(address3 - address2));
+    
+    // Set the jump offset (how far to jump back to the start)
+    // This jumps from the end back to the start of the loop
+    machineCode.SetOffset(insertAddressToJump, (int)(address1 - address3));
+}
+
 AndNode::AndNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
