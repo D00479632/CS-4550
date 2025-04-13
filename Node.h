@@ -117,6 +117,7 @@ public:
     CoutStatementNode(ExpressionNode* expression);
     virtual ~CoutStatementNode();
     virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     ExpressionNode* mExpressionNode;
@@ -134,6 +135,7 @@ class IntegerNode : public ExpressionNode {
 public:
     IntegerNode(int integer);
     virtual int Evaluate() { return mInteger; }
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     int mInteger;
@@ -149,6 +151,7 @@ public:
     void SetValue(int v);
     int GetIndex() const;
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     std::string mLabel;
@@ -169,60 +172,70 @@ class PlusNode : public BinaryOperatorNode {
 public:
     PlusNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class MinusNode : public BinaryOperatorNode {
 public:
     MinusNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class TimesNode : public BinaryOperatorNode {
 public:
     TimesNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class DivideNode : public BinaryOperatorNode {
 public:
     DivideNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class LessNode : public BinaryOperatorNode {
 public:
     LessNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class LessEqualNode : public BinaryOperatorNode {
 public:
     LessEqualNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class GreaterNode : public BinaryOperatorNode {
 public:
     GreaterNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class GreaterEqualNode : public BinaryOperatorNode {
 public:
     GreaterEqualNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class EqualNode : public BinaryOperatorNode {
 public:
     EqualNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class NotEqualNode : public BinaryOperatorNode {
 public:
     NotEqualNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class IfStatementNode : public StatementNode {
@@ -230,6 +243,7 @@ public:
     IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement);
     virtual ~IfStatementNode();
     virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     ExpressionNode* mCondition;
@@ -241,6 +255,7 @@ public:
     WhileStatementNode(ExpressionNode* condition, StatementNode* body);
     virtual ~WhileStatementNode();
     virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     ExpressionNode* mCondition;
@@ -251,16 +266,19 @@ class AndNode : public BinaryOperatorNode {
 public:
     AndNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 class OrNode : public BinaryOperatorNode {
 public:
     OrNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
 };
 
 // Problem 2 midterm2: Added NullStatementNode to support empty statements
 class NullStatementNode : public StatementNode {
 public:
     virtual void Interpret() { } // Does nothing when interpreted
+    virtual void Code(InstructionsClass &machineCode) { } // Problem 3: Code Generator - Does nothing when coded
 };
