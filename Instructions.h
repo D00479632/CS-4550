@@ -1,3 +1,6 @@
+#ifndef INSTRUCTIONS_H
+#define INSTRUCTIONS_H
+
 const int MAX_INSTRUCTIONS = 5000;
 const int MAX_DATA = 5000;
 
@@ -79,4 +82,6 @@ private:
     
     // Problem 11 - Relational operator helper
     void PopPopComparePush(unsigned char relational_operator);
-}; 
+};
+
+#endif 
