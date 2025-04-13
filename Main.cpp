@@ -80,8 +80,9 @@ int main() {
     //TestParserOutput();
     //TestInterpreter();
     
-    // Problem 13: Test the code generator
-    CodeAndExecute("code5.txt");
+    // Problem 14: Incremental testing of code generator
+    std::cout << "\nTesting empty main function:\n";
+    CodeAndExecute("code6.txt");
     return 0;
 }
 
