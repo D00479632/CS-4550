@@ -5,7 +5,7 @@ CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++11 -I.
 
 # Source files
-SRCS = Main.cpp Token.cpp Scanner.cpp StateMachine.cpp Symbol.cpp Node.cpp Parser.cpp
+SRCS = Main.cpp Token.cpp Scanner.cpp StateMachine.cpp Symbol.cpp Node.cpp Parser.cpp Instructions.cpp
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
