@@ -220,17 +220,39 @@ void StartNode::Interpret() {
     mProgramNode->Interpret();
 }
 
+// Problem 3: Code Generator - StartNode implementation
+void StartNode::Code(InstructionsClass &machineCode) {
+    mProgramNode->Code(machineCode);
+}
+
 void ProgramNode::Interpret() {
     mBlockNode->Interpret();
+}
+
+// Problem 3: Code Generator - ProgramNode implementation
+void ProgramNode::Code(InstructionsClass &machineCode) {
+    mBlockNode->Code(machineCode);
 }
 
 void BlockNode::Interpret() {
     mStatementGroupNode->Interpret();
 }
 
+// Problem 3: Code Generator - BlockNode implementation
+void BlockNode::Code(InstructionsClass &machineCode) {
+    mStatementGroupNode->Code(machineCode);
+}
+
 void StatementGroupNode::Interpret() {
     for (StatementNode* statement : mStatements) {
         statement->Interpret();
+    }
+}
+
+// Problem 3: Code Generator - StatementGroupNode implementation
+void StatementGroupNode::Code(InstructionsClass &machineCode) {
+    for (StatementNode* statement : mStatements) {
+        statement->Code(machineCode);
     }
 }
 
