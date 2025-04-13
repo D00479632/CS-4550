@@ -1,6 +1,68 @@
 void main()
 {
-    int sum;
-    sum = 35 + 400;
-    cout << sum;
+    // Test all arithmetic operators
+    int a;
+    int b;
+    int result;
+    
+    a = 50;
+    b = 10;
+    
+    // Addition
+    result = a + b;
+    cout << result;  // Should print 60
+    
+    // Subtraction
+    result = a - b;
+    cout << result;  // Should print 40
+    
+    // Multiplication
+    result = a * b;
+    cout << result;  // Should print 500
+    
+    // Division
+    result = a / b;
+    cout << result;  // Should print 5
+    
+    // Test relational operators with if statements
+    if (a < b) {
+        cout << 0;  // Should not print
+    }
+    
+    if (a > b) {
+        cout << 1;  // Should print 1
+    }
+    
+    if (a <= 50) {
+        cout << 2;  // Should print 2
+    }
+    
+    if (a >= 50) {
+        cout << 3;  // Should print 3
+    }
+    
+    if (a == 50) {
+        cout << 4;  // Should print 4
+    }
+    
+    if (a != b) {
+        cout << 5;  // Should print 5
+    }
+    
+    // Test logical operators
+    if (a > b && a == 50) {
+        cout << 6;  // Should print 6
+    }
+    
+    if (a < b || a == 50) {
+        cout << 7;  // Should print 7
+    }
+    
+    // Test while loop
+    int count;
+    count = 3;
+    while (count > 0) {
+        cout << count;  // Should print 3, 2, 1
+        count = count - 1;
+    }
 }
