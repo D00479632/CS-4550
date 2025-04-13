@@ -179,6 +179,18 @@ int PlusNode::Evaluate() {
     return mLeft->Evaluate() + mRight->Evaluate();
 }
 
+// Problem 11: Code Generator - PlusNode implementation
+void PlusNode::CodeEvaluate(InstructionsClass &machineCode) {
+    // Generate code to evaluate left operand and leave result on stack
+    mLeft->CodeEvaluate(machineCode);
+    
+    // Generate code to evaluate right operand and leave result on stack
+    mRight->CodeEvaluate(machineCode);
+    
+    // Generate code to pop both values, add them, and push result
+    machineCode.PopPopAddPush();
+}
+
 MinusNode::MinusNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
