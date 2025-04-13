@@ -199,6 +199,13 @@ int MinusNode::Evaluate() {
     return mLeft->Evaluate() - mRight->Evaluate();
 }
 
+// Problem 12: Code Generator - MinusNode implementation
+void MinusNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopSubPush();
+}
+
 TimesNode::TimesNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
@@ -207,12 +214,26 @@ int TimesNode::Evaluate() {
     return mLeft->Evaluate() * mRight->Evaluate();
 }
 
+// Problem 12: Code Generator - TimesNode implementation
+void TimesNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopMulPush();
+}
+
 DivideNode::DivideNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
 
 int DivideNode::Evaluate() {
     return mLeft->Evaluate() / mRight->Evaluate();
+}
+
+// Problem 12: Code Generator - DivideNode implementation
+void DivideNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopDivPush();
 }
 
 // Comparison Nodes implementations
@@ -224,12 +245,26 @@ int LessNode::Evaluate() {
     return mLeft->Evaluate() < mRight->Evaluate() ? 1 : 0;
 }
 
+// Problem 12: Code Generator - LessNode implementation
+void LessNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopLessPush();
+}
+
 LessEqualNode::LessEqualNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
 
 int LessEqualNode::Evaluate() {
     return mLeft->Evaluate() <= mRight->Evaluate() ? 1 : 0;
+}
+
+// Problem 12: Code Generator - LessEqualNode implementation
+void LessEqualNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopLessEqualPush();
 }
 
 GreaterNode::GreaterNode(ExpressionNode* left, ExpressionNode* right)
@@ -240,12 +275,26 @@ int GreaterNode::Evaluate() {
     return mLeft->Evaluate() > mRight->Evaluate() ? 1 : 0;
 }
 
+// Problem 12: Code Generator - GreaterNode implementation
+void GreaterNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopGreaterPush();
+}
+
 GreaterEqualNode::GreaterEqualNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
 
 int GreaterEqualNode::Evaluate() {
     return mLeft->Evaluate() >= mRight->Evaluate() ? 1 : 0;
+}
+
+// Problem 12: Code Generator - GreaterEqualNode implementation
+void GreaterEqualNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopGreaterEqualPush();
 }
 
 EqualNode::EqualNode(ExpressionNode* left, ExpressionNode* right)
@@ -256,12 +305,26 @@ int EqualNode::Evaluate() {
     return mLeft->Evaluate() == mRight->Evaluate() ? 1 : 0;
 }
 
+// Problem 12: Code Generator - EqualNode implementation
+void EqualNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopEqualPush();
+}
+
 NotEqualNode::NotEqualNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
 
 int NotEqualNode::Evaluate() {
     return mLeft->Evaluate() != mRight->Evaluate() ? 1 : 0;
+}
+
+// Problem 12: Code Generator - NotEqualNode implementation
+void NotEqualNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopNotEqualPush();
 }
 
 void StartNode::Interpret() {
@@ -411,10 +474,24 @@ int AndNode::Evaluate() {
     return (mLeft->Evaluate() && mRight->Evaluate()) ? 1 : 0;
 }
 
+// Problem 12: Code Generator - AndNode implementation
+void AndNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopAndPush();
+}
+
 OrNode::OrNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {
 }
 
 int OrNode::Evaluate() {
     return (mLeft->Evaluate() || mRight->Evaluate()) ? 1 : 0;
+}
+
+// Problem 12: Code Generator - OrNode implementation
+void OrNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopOrPush();
 }
