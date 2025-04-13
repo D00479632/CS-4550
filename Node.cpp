@@ -285,6 +285,15 @@ void CoutStatementNode::Interpret() {
     std::cout << value << " ";
 }
 
+// Problem 6: Code Generator - CoutStatementNode implementation
+void CoutStatementNode::Code(InstructionsClass &machineCode) {
+    // Generate code to evaluate the expression and leave its value on the stack
+    mExpressionNode->CodeEvaluate(machineCode);
+    
+    // Generate code to pop the value from the stack and write it
+    machineCode.PopAndWrite();
+}
+
 IfStatementNode::IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement)
     : mCondition(condition), mThenStatement(thenStatement) {
 }
