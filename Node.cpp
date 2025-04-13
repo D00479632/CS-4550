@@ -147,6 +147,12 @@ int IdentifierNode::Evaluate() {
     return mSymbolTable->GetValue(mLabel);
 }
 
+// Problem 9: Code Generator - IdentifierNode implementation
+void IdentifierNode::CodeEvaluate(InstructionsClass &machineCode) {
+    // Push the variable's value onto the stack using its index in mData
+    machineCode.PushVariable(this->GetIndex());
+}
+
 // BinaryOperatorNode implementation
 BinaryOperatorNode::BinaryOperatorNode(ExpressionNode* left, ExpressionNode* right)
     : mLeft(left), mRight(right) {
