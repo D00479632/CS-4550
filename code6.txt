@@ -1,4 +1,4 @@
 void main()
 {
-    cout << 1000;
+    int sum;
 }
