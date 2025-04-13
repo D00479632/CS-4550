@@ -126,6 +126,12 @@ ExpressionNode::~ExpressionNode() {
 IntegerNode::IntegerNode(int integer) : mInteger(integer) {
 }
 
+// Problem 10: Code Generator - IntegerNode implementation
+void IntegerNode::CodeEvaluate(InstructionsClass &machineCode) {
+    // Push the integer constant onto the stack
+    machineCode.PushValue(mInteger);
+}
+
 // IdentifierNode implementation
 IdentifierNode::IdentifierNode(const std::string& label, SymbolTableClass* symbolTable)
     : mLabel(label), mSymbolTable(symbolTable) {
