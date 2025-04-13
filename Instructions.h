@@ -51,6 +51,8 @@ public:
     // Problem 14 - Debug method
     void PrintAllMachineCodes();
     
+    virtual void Code([[maybe_unused]] InstructionsClass &machineCode) { }
+    
 private:
     // Private data members
     unsigned char mCode[MAX_INSTRUCTIONS];
