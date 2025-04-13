@@ -1,3 +1,4 @@
 void main()
 {
+    cout << 1000;
 }
