@@ -75,6 +75,13 @@ void DeclarationStatementNode::Interpret() {
     }
 }
 
+// Problem 4: Code Generator - DeclarationStatementNode implementation
+void DeclarationStatementNode::Code(InstructionsClass &machineCode) {
+    mIdentifierNode->DeclareVariable();
+    // Note: Variable storage will be handled by InstructionsClass's mData array
+    // No need to set initial value as in Interpret
+}
+
 AssignmentStatementNode::AssignmentStatementNode(IdentifierNode* identifier, ExpressionNode* expression)
     : mIdentifierNode(identifier), mExpressionNode(expression) {
 }
