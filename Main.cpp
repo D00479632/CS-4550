@@ -18,7 +18,7 @@ void CodeAndExecute(std::string inputFile) {
     InstructionsClass machineCode;
     root->Code(machineCode);
     machineCode.Finish();
-    machineCode.PrintAllMachineCodes();
+    //machineCode.PrintAllMachineCodes();
     
     // Execute the machine code instructions previously created
     machineCode.Execute();
