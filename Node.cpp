@@ -77,9 +77,14 @@ void DeclarationStatementNode::Interpret() {
 
 // Problem 4: Code Generator - DeclarationStatementNode implementation
 void DeclarationStatementNode::Code(InstructionsClass &machineCode) {
+    // Declare the variable to get its index in mData
     mIdentifierNode->DeclareVariable();
-    // Note: Variable storage will be handled by InstructionsClass's mData array
-    // No need to set initial value as in Interpret
+    
+    // If there's an initialization expression, evaluate it and store the result
+    if (mInitializationExpression) {
+        mInitializationExpression->CodeEvaluate(machineCode);
+        machineCode.PopAndStore(mIdentifierNode->GetIndex());
+    }
 }
 
 AssignmentStatementNode::AssignmentStatementNode(IdentifierNode* identifier, ExpressionNode* expression)

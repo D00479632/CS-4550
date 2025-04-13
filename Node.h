@@ -280,5 +280,5 @@ public:
 class NullStatementNode : public StatementNode {
 public:
     virtual void Interpret() { } // Does nothing when interpreted
-    virtual void Code(InstructionsClass &machineCode) { } // Problem 3: Code Generator - Does nothing when coded
+    virtual void Code([[maybe_unused]] InstructionsClass &machineCode) { } // Problem 3: Code Generator - Does nothing when coded
 };
