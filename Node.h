@@ -31,6 +31,7 @@ public:
     StartNode(ProgramNode* node); 
     virtual ~StartNode(); 
     virtual void Interpret(); // New method
+    virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     ProgramNode* mProgramNode; 
@@ -42,6 +43,7 @@ public:
     ProgramNode(BlockNode* node);
     virtual ~ProgramNode();
     virtual void Interpret(); // New method
+    virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     BlockNode* mBlockNode;
@@ -54,6 +56,7 @@ public:
     // It loops through each StatementNode pointer, calling delete on each one.
     virtual ~StatementGroupNode();
     virtual void Interpret(); // New method
+    virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
     // takes as a parameter a StatementNode pointer and adds it to the vector.
     void AddStatement(StatementNode* statement);
 
@@ -69,6 +72,7 @@ public:
     // every statement must be a specific type (declaration, assignment, if, while, etc.)
     // and must provide its own interpretation logic
     virtual void Interpret() = 0;
+    virtual void Code(InstructionsClass &machineCode) = 0; // Problem 3: Code Generator
 };
 
 // Derive BlockNode from StatementNode
@@ -77,6 +81,7 @@ public:
     BlockNode(StatementGroupNode* node);
     virtual ~BlockNode();
     virtual void Interpret(); 
+    virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
 
 private:
     StatementGroupNode* mStatementGroupNode;
@@ -87,6 +92,7 @@ public:
     DeclarationStatementNode(IdentifierNode* identifier, ExpressionNode* initExpression = nullptr);
     virtual ~DeclarationStatementNode();
     virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode); // Problem 4: Code Generator
 
 private:
     IdentifierNode* mIdentifierNode;
@@ -98,6 +104,7 @@ public:
     AssignmentStatementNode(IdentifierNode* identifier, ExpressionNode* expression);
     virtual ~AssignmentStatementNode();
     virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode); // Problem 5: Code Generator
 
 private:
     IdentifierNode* mIdentifierNode;
