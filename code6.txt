@@ -1,5 +1,5 @@
 void main()
 {
     int sum;
-    sum = 35;
+    sum = 35 + 400;
 }
