@@ -77,10 +77,11 @@ void TestInterpreter() {
 int main() {
     //TestParserNoOutput();
     //TestParserOutput();
-    //TestInterpreter();
+    std::cout << "\nTesting Interpreter:\n";
+    TestInterpreter();
     
     // Problem 14: Incremental testing of code generator
-    std::cout << "\nTesting empty main function:\n";
+    std::cout << "\nTesting coding:\n";
     CodeAndExecute("code6.txt");
     return 0;
 }
