@@ -82,7 +82,7 @@ int main() {
     
     // Problem 14: Incremental testing of code generator
     std::cout << "\nTesting coding:\n";
-    CodeAndExecute("code6.txt");
+    CodeAndExecute("code7.txt");
     return 0;
 }
 

@@ -114,13 +114,16 @@ private:
 
 class CoutStatementNode : public StatementNode {
 public:
-    CoutStatementNode(ExpressionNode* expression);
+    CoutStatementNode();
     virtual ~CoutStatementNode();
     virtual void Interpret();
     virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
+    void AddExpression(ExpressionNode* expression);
+    void AddEndl();
 
 private:
-    ExpressionNode* mExpressionNode;
+    std::vector<ExpressionNode*> mExpressions;
+    std::vector<bool> mIsEndl;
 };
 
 class ExpressionNode {

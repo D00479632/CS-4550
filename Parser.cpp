@@ -81,10 +81,41 @@ AssignmentStatementNode * ParserClass::AssignmentStatement() {
 
 CoutStatementNode * ParserClass::CoutStatement() {
     Match(COUT_TOKEN);
+    CoutStatementNode *coutNode = new CoutStatementNode();
+    
+    // First << must be present
     Match(INSERTION_TOKEN);
-    ExpressionNode *expressionNode = Expression();
+    
+    // Check if next token is ENDL
+    TokenType tt = mScanner->PeekNextToken().GetTokenType();
+    if (tt == ENDL_TOKEN) {
+        Match(ENDL_TOKEN);
+        coutNode->AddEndl();
+    } else {
+        ExpressionNode *expressionNode = Expression();
+        coutNode->AddExpression(expressionNode);
+    }
+    
+    // Keep reading more << expressions or endl
+    while (true) {
+        tt = mScanner->PeekNextToken().GetTokenType();
+        if (tt == INSERTION_TOKEN) {
+            Match(INSERTION_TOKEN);
+            tt = mScanner->PeekNextToken().GetTokenType();
+            if (tt == ENDL_TOKEN) {
+                Match(ENDL_TOKEN);
+                coutNode->AddEndl();
+            } else {
+                ExpressionNode *expressionNode = Expression();
+                coutNode->AddExpression(expressionNode);
+            }
+        } else {
+            break;
+        }
+    }
+    
     Match(SEMICOLON_TOKEN);
-    return new CoutStatementNode(expressionNode);
+    return coutNode;
 }
 
 // Expression -> Or -> And -> Relational -> PlusMinus -> TimesDivide -> Exponent -> Factor.

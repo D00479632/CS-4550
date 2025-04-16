@@ -114,13 +114,49 @@ void AssignmentStatementNode::Code(InstructionsClass &machineCode) {
     machineCode.PopAndStore(index);
 }
 
-CoutStatementNode::CoutStatementNode(ExpressionNode* expression) 
-    : mExpressionNode(expression) {
+CoutStatementNode::CoutStatementNode() {
 }
 
 CoutStatementNode::~CoutStatementNode() {
     MSG("Deleting CoutStatementNode");
-    delete mExpressionNode;
+    for (ExpressionNode* expr : mExpressions) {
+        if (expr) delete expr;
+    }
+}
+
+void CoutStatementNode::AddExpression(ExpressionNode* expression) {
+    mExpressions.push_back(expression);
+    mIsEndl.push_back(false);
+}
+
+void CoutStatementNode::AddEndl() {
+    mExpressions.push_back(nullptr);
+    mIsEndl.push_back(true);
+}
+
+void CoutStatementNode::Interpret() {
+    for (size_t i = 0; i < mExpressions.size(); i++) {
+        if (mIsEndl[i]) {
+            std::cout << std::endl;
+        } else {
+            int value = mExpressions[i]->Evaluate();
+            std::cout << value;
+        }
+    }
+}
+
+// Problem 6: Code Generator - CoutStatementNode implementation
+void CoutStatementNode::Code(InstructionsClass &machineCode) {
+    for (size_t i = 0; i < mExpressions.size(); i++) {
+        if (mIsEndl[i]) {
+            machineCode.WriteEndlLinux64();
+        } else {
+            // Generate code to evaluate the expression and leave its value on the stack
+            mExpressions[i]->CodeEvaluate(machineCode);
+            // Generate code to pop the value from the stack and write it
+            machineCode.PopAndWrite();
+        }
+    }
 }
 
 ExpressionNode::~ExpressionNode() {
@@ -370,20 +406,6 @@ void StatementGroupNode::Code(InstructionsClass &machineCode) {
     for (StatementNode* statement : mStatements) {
         statement->Code(machineCode);
     }
-}
-
-void CoutStatementNode::Interpret() {
-    int value = mExpressionNode->Evaluate();
-    std::cout << value << " ";
-}
-
-// Problem 6: Code Generator - CoutStatementNode implementation
-void CoutStatementNode::Code(InstructionsClass &machineCode) {
-    // Generate code to evaluate the expression and leave its value on the stack
-    mExpressionNode->CodeEvaluate(machineCode);
-    
-    // Generate code to pop the value from the stack and write it
-    machineCode.PopAndWrite();
 }
 
 IfStatementNode::IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement)

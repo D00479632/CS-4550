@@ -1,0 +1,6 @@
+void main()
+{
+    int x;
+    x = 5;
+    cout << 10 << x+2 << endl << endl << x*3+1 << endl;
+} 
