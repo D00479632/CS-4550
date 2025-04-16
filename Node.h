@@ -11,8 +11,6 @@ class StatementGroupNode;
 class StatementNode;
 class DeclarationStatementNode;
 class AssignmentStatementNode;
-class PlusEqualsStatementNode;
-class MinusEqualsStatementNode;
 class CoutStatementNode;
 class ExpressionNode;
 class IdentifierNode;

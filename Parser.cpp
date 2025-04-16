@@ -71,7 +71,7 @@ DeclarationStatementNode * ParserClass::DeclarationStatement() {
     return new DeclarationStatementNode(identifierNode, initExpression);
 }
 
-AssignmentStatementNode * ParserClass::AssignmentStatement() {
+StatementNode * ParserClass::AssignmentStatement() {
     IdentifierNode *identifierNode = Identifier();
     
     // Peek to check for =, +=, or -= tokens
