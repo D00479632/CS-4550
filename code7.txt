@@ -2,11 +2,11 @@ void main()
 {
     int x;
     x = 5;
-    cout << x << endl;
+    cout << x << endl; // Should print 5
     
     x += 3;
-    cout << x << endl;
+    cout << x << endl; // Should print 8
     
     x -= 2;
-    cout << x << endl;
+    cout << x << endl; // Should print 6
 } 
