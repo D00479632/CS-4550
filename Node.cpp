@@ -114,6 +114,74 @@ void AssignmentStatementNode::Code(InstructionsClass &machineCode) {
     machineCode.PopAndStore(index);
 }
 
+// PlusEqualsStatementNode implementation
+PlusEqualsStatementNode::PlusEqualsStatementNode(IdentifierNode* identifier, ExpressionNode* expression)
+    : mIdentifierNode(identifier), mExpressionNode(expression) {
+}
+
+PlusEqualsStatementNode::~PlusEqualsStatementNode() {
+    MSG("Deleting PlusEqualsStatementNode");
+    delete mIdentifierNode;
+    delete mExpressionNode;
+}
+
+void PlusEqualsStatementNode::Interpret() {
+    int currentValue = mIdentifierNode->Evaluate();
+    int expressionValue = mExpressionNode->Evaluate();
+    mIdentifierNode->SetValue(currentValue + expressionValue);
+}
+
+void PlusEqualsStatementNode::Code(InstructionsClass &machineCode) {
+    // Get the index where this variable is stored in mData
+    int index = mIdentifierNode->GetIndex();
+    
+    // Push the current value of the variable
+    machineCode.PushVariable(index);
+    
+    // Push the expression value
+    mExpressionNode->CodeEvaluate(machineCode);
+    
+    // Add them together
+    machineCode.PopPopAddPush();
+    
+    // Store the result back in the variable
+    machineCode.PopAndStore(index);
+}
+
+// MinusEqualsStatementNode implementation
+MinusEqualsStatementNode::MinusEqualsStatementNode(IdentifierNode* identifier, ExpressionNode* expression)
+    : mIdentifierNode(identifier), mExpressionNode(expression) {
+}
+
+MinusEqualsStatementNode::~MinusEqualsStatementNode() {
+    MSG("Deleting MinusEqualsStatementNode");
+    delete mIdentifierNode;
+    delete mExpressionNode;
+}
+
+void MinusEqualsStatementNode::Interpret() {
+    int currentValue = mIdentifierNode->Evaluate();
+    int expressionValue = mExpressionNode->Evaluate();
+    mIdentifierNode->SetValue(currentValue - expressionValue);
+}
+
+void MinusEqualsStatementNode::Code(InstructionsClass &machineCode) {
+    // Get the index where this variable is stored in mData
+    int index = mIdentifierNode->GetIndex();
+    
+    // Push the current value of the variable
+    machineCode.PushVariable(index);
+    
+    // Push the expression value
+    mExpressionNode->CodeEvaluate(machineCode);
+    
+    // Subtract the expression from the variable
+    machineCode.PopPopSubPush();
+    
+    // Store the result back in the variable
+    machineCode.PopAndStore(index);
+}
+
 CoutStatementNode::CoutStatementNode() {
 }
 

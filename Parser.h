@@ -19,6 +19,8 @@ private:
     StatementNode* Statement();
     DeclarationStatementNode* DeclarationStatement();
     AssignmentStatementNode* AssignmentStatement();
+    PlusEqualsStatementNode* PlusEqualsStatement(IdentifierNode* identifierNode);
+    MinusEqualsStatementNode* MinusEqualsStatement(IdentifierNode* identifierNode);
     CoutStatementNode* CoutStatement();
 
 

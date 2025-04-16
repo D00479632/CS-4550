@@ -36,6 +36,8 @@ enum MachineState {
     DOUBLE_AND_STATE, // 27
     OR_STATE,         // 28
     DOUBLE_OR_STATE,  // 29
+    PLUS_EQUAL_STATE, // 30
+    MINUS_EQUAL_STATE, // 31
     
     LAST_STATE // Ensure this is the last state
 };

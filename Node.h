@@ -11,6 +11,8 @@ class StatementGroupNode;
 class StatementNode;
 class DeclarationStatementNode;
 class AssignmentStatementNode;
+class PlusEqualsStatementNode;
+class MinusEqualsStatementNode;
 class CoutStatementNode;
 class ExpressionNode;
 class IdentifierNode;
@@ -109,7 +111,30 @@ public:
 private:
     IdentifierNode* mIdentifierNode;
     ExpressionNode* mExpressionNode;
+};
 
+class PlusEqualsStatementNode : public StatementNode {
+public:
+    PlusEqualsStatementNode(IdentifierNode* identifier, ExpressionNode* expression);
+    virtual ~PlusEqualsStatementNode();
+    virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode);
+
+private:
+    IdentifierNode* mIdentifierNode;
+    ExpressionNode* mExpressionNode;
+};
+
+class MinusEqualsStatementNode : public StatementNode {
+public:
+    MinusEqualsStatementNode(IdentifierNode* identifier, ExpressionNode* expression);
+    virtual ~MinusEqualsStatementNode();
+    virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode);
+
+private:
+    IdentifierNode* mIdentifierNode;
+    ExpressionNode* mExpressionNode;
 };
 
 class CoutStatementNode : public StatementNode {

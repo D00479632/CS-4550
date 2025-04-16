@@ -44,6 +44,8 @@ StateMachineClass::StateMachineClass() {
     mLegalMoves[LESS_THAN_STATE][EQUAL_CHAR] = LESS_EQUAL_STATE;
     mLegalMoves[EXCLAMATION_STATE][EQUAL_CHAR] = NOT_EQUAL_STATE;
     mLegalMoves[ASSIGNMENT_STATE][EQUAL_CHAR] = EQUAL_STATE;
+    mLegalMoves[PLUS_STATE][EQUAL_CHAR] = PLUS_EQUAL_STATE;
+    mLegalMoves[MINUS_STATE][EQUAL_CHAR] = MINUS_EQUAL_STATE;
 
     // TODO: something is not working with my short comments it comments
     // everything after the // no matter if there is a return or not
@@ -106,6 +108,8 @@ StateMachineClass::StateMachineClass() {
     mCorrespondingTokenTypes[MINUS_STATE] = MINUS_TOKEN;
     mCorrespondingTokenTypes[DOUBLE_AND_STATE] = AND_TOKEN;
     mCorrespondingTokenTypes[DOUBLE_OR_STATE] = OR_TOKEN;
+    mCorrespondingTokenTypes[PLUS_EQUAL_STATE] = PLUSEQUAL_TOKEN;
+    mCorrespondingTokenTypes[MINUS_EQUAL_STATE] = MINUSEQUAL_TOKEN;
 }
 
 MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & previousTokenType) {

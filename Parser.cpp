@@ -73,10 +73,37 @@ DeclarationStatementNode * ParserClass::DeclarationStatement() {
 
 AssignmentStatementNode * ParserClass::AssignmentStatement() {
     IdentifierNode *identifierNode = Identifier();
-    Match(ASSIGNMENT_TOKEN);
+    
+    // Peek to check for =, +=, or -= tokens
+    TokenType nextTokenType = mScanner->PeekNextToken().GetTokenType();
+    
+    if (nextTokenType == ASSIGNMENT_TOKEN) {
+        Match(ASSIGNMENT_TOKEN);
+        ExpressionNode *expressionNode = Expression();
+        Match(SEMICOLON_TOKEN);
+        return new AssignmentStatementNode(identifierNode, expressionNode);
+    } else if (nextTokenType == PLUSEQUAL_TOKEN) {
+        return PlusEqualsStatement(identifierNode);
+    } else if (nextTokenType == MINUSEQUAL_TOKEN) {
+        return MinusEqualsStatement(identifierNode);
+    } else {
+        Error("Expected assignment operator (=, +=, -=)");
+        return nullptr;
+    }
+}
+
+PlusEqualsStatementNode * ParserClass::PlusEqualsStatement(IdentifierNode* identifierNode) {
+    Match(PLUSEQUAL_TOKEN);
     ExpressionNode *expressionNode = Expression();
     Match(SEMICOLON_TOKEN);
-    return new AssignmentStatementNode(identifierNode, expressionNode);
+    return new PlusEqualsStatementNode(identifierNode, expressionNode);
+}
+
+MinusEqualsStatementNode * ParserClass::MinusEqualsStatement(IdentifierNode* identifierNode) {
+    Match(MINUSEQUAL_TOKEN);
+    ExpressionNode *expressionNode = Expression();
+    Match(SEMICOLON_TOKEN);
+    return new MinusEqualsStatementNode(identifierNode, expressionNode);
 }
 
 CoutStatementNode * ParserClass::CoutStatement() {
