@@ -126,17 +126,15 @@ CoutStatementNode::~CoutStatementNode() {
 
 void CoutStatementNode::AddExpression(ExpressionNode* expression) {
     mExpressions.push_back(expression);
-    mIsEndl.push_back(false);
 }
 
 void CoutStatementNode::AddEndl() {
-    mExpressions.push_back(nullptr);
-    mIsEndl.push_back(true);
+    mExpressions.push_back(NULL);
 }
 
 void CoutStatementNode::Interpret() {
     for (size_t i = 0; i < mExpressions.size(); i++) {
-        if (mIsEndl[i]) {
+        if (mExpressions[i] == NULL) {
             std::cout << std::endl;
         } else {
             int value = mExpressions[i]->Evaluate();
@@ -148,7 +146,7 @@ void CoutStatementNode::Interpret() {
 // Problem 6: Code Generator - CoutStatementNode implementation
 void CoutStatementNode::Code(InstructionsClass &machineCode) {
     for (size_t i = 0; i < mExpressions.size(); i++) {
-        if (mIsEndl[i]) {
+        if (mExpressions[i] == NULL) {
             machineCode.WriteEndlLinux64();
         } else {
             // Generate code to evaluate the expression and leave its value on the stack

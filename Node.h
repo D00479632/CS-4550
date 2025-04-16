@@ -123,7 +123,8 @@ public:
 
 private:
     std::vector<ExpressionNode*> mExpressions;
-    std::vector<bool> mIsEndl;
+    // Just use None for is end of line
+    //std::vector<bool> mIsEndl;
 };
 
 class ExpressionNode {
