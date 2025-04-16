@@ -67,6 +67,7 @@ private:
                       // Jump to this offset of mCode to start program execution.
     char mMinusString; // Holds '-'
     char mSpaceString; // Holds ' '
+    char mNewlineString; // Holds '\n'
     
     // Problem 2 - Encoding methods
     void Encode(unsigned char c);

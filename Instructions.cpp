@@ -397,6 +397,7 @@ InstructionsClass::InstructionsClass()
     mTempInteger = 0;
     mMinusString = '-';
     mSpaceString = ' ';
+    mNewlineString = '\n';
     
     // Record where the PrintIntegerLinux64 function starts:
     mStartOfPrint = mCurrent;
@@ -655,7 +656,7 @@ void InstructionsClass::WriteEndlLinux64()
     Encode((int)1); // 1 for stdout port
     Encode(BIT64);
     Encode(IMMEDIATE_TO_ESI);
-    Encode((void*)0x0A); // newline character
+    Encode(&mNewlineString); // address of newline character
     Encode(IMMEDIATE_TO_EDX);
     Encode((int)1); // length of bytes to print
     // 64 bit syscall:
