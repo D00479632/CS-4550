@@ -19,6 +19,7 @@ public:
     
     // Problem 5 - Methods for printing
     void PopAndWrite();
+    void WriteEndlLinux64();
     
     // Problem 6-7 - Methods for variables
     void PushVariable(int index);
@@ -77,7 +78,6 @@ private:
     void PrintIntegerLinux64();
     void WriteMinusLinux64();
     void WriteSpaceLinux64();
-    void WriteEndlLinux64();
     void Call(void * function_address);
     
     // Problem 6 - Memory access
