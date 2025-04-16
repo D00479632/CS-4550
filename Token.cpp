@@ -15,6 +15,8 @@ TokenClass::TokenClass(TokenType type, const std::string &lexeme) : mType(type),
         mType = IF_TOKEN;
     } else if (mLexeme == "while") {
         mType = WHILE_TOKEN;
+    } else if (mLexeme == "endl") {
+        mType = ENDL_TOKEN;
     }
 }
 
