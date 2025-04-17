@@ -79,9 +79,6 @@ StateMachineClass::StateMachineClass() {
     mLegalMoves[AND_STATE][AND_CHAR] = DOUBLE_AND_STATE;
     mLegalMoves[OR_STATE][OR_CHAR] = DOUBLE_OR_STATE;
     
-    // Allow identifiers to contain digits
-    mLegalMoves[IDENTIFIER_STATE][DIGIT_CHAR] = IDENTIFIER_STATE;
-
     // Initializing mCorrespondingTokenTypes
     // First, initialize all states to correspond to BAD_TOKEN.
     for(int i = 0; i < LAST_STATE; i++) {
@@ -119,7 +116,7 @@ MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & p
     // Convert the input character into an input character type
     CharacterType charType = BAD_CHAR;
 
-    //MSG("CurrentChar: " + std::string(1, currentCharacter) + " ASCII Value: " + std::to_string(static_cast<int>(currentCharacter))); // Debug current char
+    MSG("CurrentChar: '" << currentCharacter << "' ASCII Value: " << (int)currentCharacter); // Debug current char
 
     if (currentCharacter == EOF)
         charType = EOF_CHAR;
