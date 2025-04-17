@@ -281,10 +281,8 @@ TokenClass ParserClass::Match(TokenType expectedType) {
         std::cerr << "Expected token type " <<
             TokenClass::GetTokenTypeName(expectedType) <<
             ", but got type " << currentToken.GetTokenTypeName() <<
-            " with lexeme: \"" << currentToken.GetLexeme() << "\"" << std::endl;
-        
-        // For debugging, continue execution instead of exiting
-        return currentToken;
+            std::endl;
+        exit(1);
     }
     MSG("\tSuccessfully matched Token Type: " <<
         currentToken.GetTokenTypeName() << ". Lexeme: \"" <<

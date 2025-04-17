@@ -25,9 +25,6 @@ TokenClass ScannerClass::GetNextToken(bool isPeeking = false) {
 
     do {
         char c = mFin.get(); // Read a character from the input file
-        
-        MSG("CurrentChar: '" << c << "' ASCII Value: " << (int)c); // Debug current char
-        
         lexeme += c; // Append the character to the lexeme
 
         if (c == '\n') { // Check for newline character
