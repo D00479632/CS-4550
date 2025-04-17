@@ -229,6 +229,9 @@ ExpressionNode * ParserClass::TimesDivide() {
 
 ExpressionNode * ParserClass::Factor() {
     TokenType tt = mScanner->PeekNextToken().GetTokenType();
+    std::string typeName = TokenClass::GetTokenTypeName(tt);
+    MSG("Factor(): Token type " << tt << " (" << typeName << ")");
+    
     if (tt == IDENTIFIER_TOKEN) {
         return Identifier();
     } else if (tt == INTEGER_TOKEN) {
