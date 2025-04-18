@@ -1,0 +1,62 @@
+void main() {
+    // Global scope variables
+    int x = 10;
+    int y = 20;
+    cout << x << endl; // Should print 10
+    cout << y << endl; // Should print 20
+    
+    {
+        // First nested block
+        int z = 30;
+        cout << x << endl; // Should print global x = 10
+        cout << z << endl; // Should print z = 30
+        
+        {
+            // Second nested block (deeper scope)
+            int x = 100;  // Shadows the outer x
+            cout << x << endl; // Should print local x = 100
+            cout << y << endl; // Should print global y = 20
+            cout << z << endl; // Should print z from outer block = 30
+        }
+        
+        cout << x << endl; // Should print global x = 10 again
+        
+        // z still exists here
+        z = 35;
+        cout << z << endl; // Should print updated z = 35
+    }
+    
+    // z should be out of scope here
+    // Uncomment to test for error: cout << z << endl;
+    
+    cout << x << endl; // Should print global x = 10
+    
+    {
+        // Another block
+        int a = 40;
+        int b = 50;
+        cout << a << endl; // Should print a = 40
+        
+        {
+            // Nested block with shadowing
+            int b = 60; // Shadows outer b
+            cout << a << endl; // Should print a = 40 from outer block
+            cout << b << endl; // Should print b = 60 (local)
+            a = 45; // Updates outer a
+        }
+        
+        cout << a << endl; // Should print updated a = 45
+        cout << b << endl; // Should print original b = 50
+    }
+    
+    // Final block to check if variables in different blocks with same names work independently
+    {
+        int test = 70;
+        cout << test << endl; // Should print test = 70
+    }
+    
+    {
+        int test = 80; // Different variable than the previous 'test'
+        cout << test << endl; // Should print test = 80
+    }
+} 
