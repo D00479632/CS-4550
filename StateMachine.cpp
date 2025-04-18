@@ -116,7 +116,7 @@ MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & p
     // Convert the input character into an input character type
     CharacterType charType = BAD_CHAR;
 
-    MSG("CurrentChar: '" << currentCharacter << "' ASCII Value: " << (int)currentCharacter); // Debug current char
+    //MSG("CurrentChar: '" << currentCharacter << "' ASCII Value: " << (int)currentCharacter); // Debug current char
 
     if (currentCharacter == EOF)
         charType = EOF_CHAR;
