@@ -1,5 +1,7 @@
 #include <string>
 #include <vector>
+#include <map>
+#include <stack>
 #pragma once
 
 class SymbolTableClass {
@@ -25,14 +27,23 @@ public:
     // returns the current number of variables in the symbol table.
     size_t GetCount(); 
 
+    // Create a new scope
+    void EnterScope();
+    
+    // Exit current scope and remove all variables declared in this scope
+    void ExitScope();
+
 private:
     struct Variable {
         std::string mLabel; // variable name
         int mValue;         // variable value
+        int mScopeLevel;    // scope level where this variable was declared
 
         // Constructor for Variable
-        Variable(const std::string & label, int value) : mLabel(label), mValue(value) {}
+        Variable(const std::string & label, int value, int scopeLevel) 
+            : mLabel(label), mValue(value), mScopeLevel(scopeLevel) {}
     };
 
     std::vector<Variable> mVariables; // Vector to store Variable types
+    int mCurrentScopeLevel; // Current scope level (0 = global scope)
 };

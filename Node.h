@@ -59,6 +59,10 @@ public:
     virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
     // takes as a parameter a StatementNode pointer and adds it to the vector.
     void AddStatement(StatementNode* statement);
+    // Get statement count
+    size_t GetStatementCount() const { return mStatements.size(); }
+    // Get statement at index
+    StatementNode* GetStatement(size_t index) const { return mStatements[index]; }
 
 private:
     std::vector<StatementNode*> mStatements;
@@ -93,6 +97,8 @@ public:
     virtual ~DeclarationStatementNode();
     virtual void Interpret();
     virtual void Code(InstructionsClass &machineCode); // Problem 4: Code Generator
+    // Getter for identifier node
+    IdentifierNode* GetIdentifierNode() const { return mIdentifierNode; }
 
 private:
     IdentifierNode* mIdentifierNode;
@@ -105,6 +111,8 @@ public:
     virtual ~AssignmentStatementNode();
     virtual void Interpret();
     virtual void Code(InstructionsClass &machineCode); // Problem 5: Code Generator
+    // Getter for identifier node
+    IdentifierNode* GetIdentifierNode() const { return mIdentifierNode; }
 
 private:
     IdentifierNode* mIdentifierNode;
@@ -179,6 +187,8 @@ public:
     int GetIndex() const;
     virtual int Evaluate();
     virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
+    // Getter for symbol table
+    SymbolTableClass* GetSymbolTable() const { return mSymbolTable; }
 
 private:
     std::string mLabel;

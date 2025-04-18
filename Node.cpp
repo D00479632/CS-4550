@@ -453,12 +453,86 @@ void ProgramNode::Code(InstructionsClass &machineCode) {
 }
 
 void BlockNode::Interpret() {
+    // Enter a new scope before interpreting the block
+    SymbolTableClass* symbolTable = nullptr;
+    
+    // Find the symbol table to use for scope management
+    // We need to find an IdentifierNode within the statements to get access to the symbol table
+    for (size_t i = 0; i < mStatementGroupNode->GetStatementCount(); i++) {
+        DeclarationStatementNode* declStatement = 
+            dynamic_cast<DeclarationStatementNode*>(mStatementGroupNode->GetStatement(i));
+        if (declStatement) {
+            IdentifierNode* identNode = declStatement->GetIdentifierNode();
+            if (identNode) {
+                symbolTable = identNode->GetSymbolTable();
+                break;
+            }
+        }
+        
+        AssignmentStatementNode* assignStatement = 
+            dynamic_cast<AssignmentStatementNode*>(mStatementGroupNode->GetStatement(i));
+        if (assignStatement) {
+            IdentifierNode* identNode = assignStatement->GetIdentifierNode();
+            if (identNode) {
+                symbolTable = identNode->GetSymbolTable();
+                break;
+            }
+        }
+    }
+    
+    if (symbolTable) {
+        symbolTable->EnterScope();
+    }
+    
+    // Interpret the statement group
     mStatementGroupNode->Interpret();
+    
+    // Exit the scope after interpreting the block
+    if (symbolTable) {
+        symbolTable->ExitScope();
+    }
 }
 
 // Problem 3: Code Generator - BlockNode implementation
 void BlockNode::Code(InstructionsClass &machineCode) {
+    // Enter a new scope before generating code for the block
+    SymbolTableClass* symbolTable = nullptr;
+    
+    // Find the symbol table to use for scope management
+    // We need to find an IdentifierNode within the statements to get access to the symbol table
+    for (size_t i = 0; i < mStatementGroupNode->GetStatementCount(); i++) {
+        DeclarationStatementNode* declStatement = 
+            dynamic_cast<DeclarationStatementNode*>(mStatementGroupNode->GetStatement(i));
+        if (declStatement) {
+            IdentifierNode* identNode = declStatement->GetIdentifierNode();
+            if (identNode) {
+                symbolTable = identNode->GetSymbolTable();
+                break;
+            }
+        }
+        
+        AssignmentStatementNode* assignStatement = 
+            dynamic_cast<AssignmentStatementNode*>(mStatementGroupNode->GetStatement(i));
+        if (assignStatement) {
+            IdentifierNode* identNode = assignStatement->GetIdentifierNode();
+            if (identNode) {
+                symbolTable = identNode->GetSymbolTable();
+                break;
+            }
+        }
+    }
+    
+    if (symbolTable) {
+        symbolTable->EnterScope();
+    }
+    
+    // Generate code for the statement group
     mStatementGroupNode->Code(machineCode);
+    
+    // Exit the scope after generating code for the block
+    if (symbolTable) {
+        symbolTable->ExitScope();
+    }
 }
 
 void StatementGroupNode::Interpret() {
