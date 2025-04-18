@@ -36,7 +36,7 @@ TokenClass ScannerClass::GetNextToken(bool isPeeking = false) {
         //MSG("Current state: " + std::to_string(currentState) + " Char: " + c);
         if (c == '\n' && currentState != CANNOT_MOVE_STATE) { // Check for newline character
             if (!isPeeking) { // Only print if not peeking
-                MSG("Current line number: " + std::to_string(mLineNumber)); // Debug message for line number
+                //MSG("Current line number: " + std::to_string(mLineNumber)); // Debug message for line number
             }
         }
         // If the current state is START_STATE or ENDFILE_STATE, reset the lexeme
