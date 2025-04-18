@@ -6,6 +6,9 @@
 
 class SymbolTableClass {
 public:
+    // Constructor
+    SymbolTableClass();
+    
     // returns true if <s> is already in the symbol table.
     bool Exists(const std::string & s); 
 
