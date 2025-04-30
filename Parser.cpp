@@ -234,22 +234,21 @@ ExpressionNode * ParserClass::TimesDivide() {
 
 ExpressionNode * ParserClass::Power() {
     ExpressionNode *current = Factor();
-    while (true) {
-        TokenType tt = mScanner->PeekNextToken().GetTokenType();
-        if (tt == TIMES_TOKEN) {  // Check for first *
-            TokenClass token = Match(tt);
-            tt = mScanner->PeekNextToken().GetTokenType();
-            if (tt == TIMES_TOKEN) {  // Check for second *
-                Match(tt);  // Match the second *
-                current = new PowerNode(current, Power());  // Right-associative like Python
-            } else {
-                // If we only see one *, treat it as multiplication
-                current = new TimesNode(current, Power());
-            }
+    TokenType tt = mScanner->PeekNextToken().GetTokenType();
+    if (tt == TIMES_TOKEN) {  // Check for first *
+        Match(tt);
+        tt = mScanner->PeekNextToken().GetTokenType();
+        if (tt == TIMES_TOKEN) {  // Check for second *
+            Match(tt);
+            // For right associativity, recursively evaluate the right side first
+            ExpressionNode* right = Power();
+            current = new PowerNode(current, right);  // Then combine with left
         } else {
-            return current;
+            // If we only see one *, treat it as multiplication
+            current = new TimesNode(current, Power());
         }
     }
+    return current;
 }
 
 ExpressionNode * ParserClass::Factor() {
