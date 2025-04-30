@@ -236,14 +236,15 @@ ExpressionNode * ParserClass::Power() {
     ExpressionNode *current = Factor();
     while (true) {
         TokenType tt = mScanner->PeekNextToken().GetTokenType();
-        if (tt == TIMES_TOKEN) {
-            Match(tt);
-            if (mScanner->PeekNextToken().GetTokenType() == TIMES_TOKEN) {
-                Match(tt);
-                current = new PowerNode(current, Power());
+        if (tt == TIMES_TOKEN) {  // Check for first *
+            TokenClass token = Match(tt);
+            tt = mScanner->PeekNextToken().GetTokenType();
+            if (tt == TIMES_TOKEN) {  // Check for second *
+                Match(tt);  // Match the second *
+                current = new PowerNode(current, Power());  // Right-associative like Python
             } else {
-                mScanner->PutBackToken();
-                return current;
+                // If we only see one *, treat it as multiplication
+                current = new TimesNode(current, Power());
             }
         } else {
             return current;
