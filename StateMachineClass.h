@@ -38,6 +38,7 @@ enum MachineState {
     DOUBLE_OR_STATE,  // 29
     PLUS_EQUAL_STATE, // 30
     MINUS_EQUAL_STATE, // 31
+    MOD_STATE,        // 32
     
     LAST_STATE // Ensure this is the last state
 };
@@ -65,6 +66,7 @@ enum CharacterType {
     MINUS_CHAR,
     AND_CHAR,    
     OR_CHAR,     
+    MOD_CHAR,    // Added MOD_CHAR for % operator
 
     LAST_CHAR // Ensure this is the last character type
 };

@@ -36,6 +36,7 @@ StateMachineClass::StateMachineClass() {
     mLegalMoves[START_STATE][LEFT_CURLY_CHAR] = LEFT_CURLY_STATE;
     mLegalMoves[START_STATE][STAR_CHAR] = TIMES_STATE;
     mLegalMoves[START_STATE][MINUS_CHAR] = MINUS_STATE;
+    mLegalMoves[START_STATE][MOD_CHAR] = MOD_STATE;  // Add modulo operator
 
     // Now deeper level nodes
     mLegalMoves[INTEGER_STATE][DIGIT_CHAR] = INTEGER_STATE;
@@ -110,6 +111,7 @@ StateMachineClass::StateMachineClass() {
     mCorrespondingTokenTypes[DOUBLE_OR_STATE] = OR_TOKEN;
     mCorrespondingTokenTypes[PLUS_EQUAL_STATE] = PLUSEQUAL_TOKEN;
     mCorrespondingTokenTypes[MINUS_EQUAL_STATE] = MINUSEQUAL_TOKEN;
+    mCorrespondingTokenTypes[MOD_STATE] = MOD_TOKEN;  // Add modulo token type
 }
 
 MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & previousTokenType) {
@@ -164,6 +166,8 @@ MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & p
         charType = AND_CHAR;
     else if (currentCharacter == '|')
         charType = OR_CHAR;
+    else if (currentCharacter == '%')  // Add modulo character handling
+        charType = MOD_CHAR;
     else 
         charType = BAD_CHAR;
 
