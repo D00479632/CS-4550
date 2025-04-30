@@ -703,7 +703,7 @@ void DoWhileStatementNode::Interpret() {
 }
 
 void DoWhileStatementNode::Code(InstructionsClass &machineCode) {
-    // Save the address of the start of the loop body
+    // Label for the start of the loop body
     unsigned char* bodyAddress = machineCode.GetAddress();
     
     // Generate code for the loop body
@@ -712,18 +712,12 @@ void DoWhileStatementNode::Code(InstructionsClass &machineCode) {
     // Generate code to evaluate the condition
     mCondition->CodeEvaluate(machineCode);
     
-    // If condition is zero, skip the jump back (exit loop)
-    unsigned char* skipJumpAddress = machineCode.SkipIfZeroStack();
+    // Generate a conditional jump to exit the loop if condition is false (zero)
+    unsigned char* exitJumpAddress = machineCode.SkipIfZeroStack();
     
-    // Generate unconditional jump back to start of loop
-    unsigned char* jumpBackAddress = machineCode.Jump();
+    // Generate code to jump back to the start of the loop
+    machineCode.Jump(bodyAddress - machineCode.GetAddress());
     
-    // Save the address after both jumps
-    unsigned char* endAddress = machineCode.GetAddress();
-    
-    // Set the offset for the conditional skip
-    machineCode.SetOffset(skipJumpAddress, (int)(endAddress - jumpBackAddress));
-    
-    // Set the offset for the jump back to the start
-    machineCode.SetOffset(jumpBackAddress, (int)(bodyAddress - endAddress));
+    // Set the offset for the exit jump (to the next instruction after the loop)
+    machineCode.SetOffset(exitJumpAddress, (int)(machineCode.GetAddress() - (exitJumpAddress + 4)));
 }
