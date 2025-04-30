@@ -33,7 +33,7 @@ TokenClass ScannerClass::GetNextToken(bool isPeeking = false) {
             }
         }
         currentState = stateMachine.UpdateState(c, previousTokenType); 
-        //MSG("Current state: " + std::to_string(currentState) + " Char: " + c);
+        MSG("Current state: " + std::to_string(currentState) + " Char: " + c);
         if (c == '\n' && currentState != CANNOT_MOVE_STATE) { // Check for newline character
             if (!isPeeking) { // Only print if not peeking
                 //MSG("Current line number: " + std::to_string(mLineNumber)); // Debug message for line number
