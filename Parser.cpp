@@ -50,6 +50,8 @@ StatementNode * ParserClass::Statement() {
         return IfStatement();
     } else if (tt == WHILE_TOKEN) {
         return WhileStatement();
+    } else if (tt == DO_TOKEN) {
+        return DoWhileStatement();
     } else if (tt == SEMICOLON_TOKEN) {
         Match(SEMICOLON_TOKEN);
         return new NullStatementNode();
@@ -281,6 +283,17 @@ WhileStatementNode* ParserClass::WhileStatement() {
     Match(RPAREN_TOKEN);
     StatementNode* body = Statement();
     return new WhileStatementNode(condition, body);
+}
+
+DoWhileStatementNode* ParserClass::DoWhileStatement() {
+    Match(DO_TOKEN);
+    StatementNode* body = Statement();
+    Match(WHILE_TOKEN);
+    Match(LPAREN_TOKEN);
+    ExpressionNode* condition = Expression();
+    Match(RPAREN_TOKEN);
+    Match(SEMICOLON_TOKEN);
+    return new DoWhileStatementNode(body, condition);
 }
 
 TokenClass ParserClass::Match(TokenType expectedType) {

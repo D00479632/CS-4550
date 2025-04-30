@@ -686,3 +686,38 @@ void OrNode::CodeEvaluate(InstructionsClass &machineCode) {
     mRight->CodeEvaluate(machineCode);
     machineCode.PopPopOrPush();
 }
+
+DoWhileStatementNode::DoWhileStatementNode(StatementNode* body, ExpressionNode* condition)
+    : mBody(body), mCondition(condition) {
+}
+
+DoWhileStatementNode::~DoWhileStatementNode() {
+    delete mBody;
+    delete mCondition;
+}
+
+void DoWhileStatementNode::Interpret() {
+    do {
+        mBody->Interpret();
+    } while (mCondition->Evaluate() != 0);
+}
+
+void DoWhileStatementNode::Code(InstructionsClass &machineCode) {
+    // Save the address of the start of the loop body
+    unsigned char* bodyAddress = machineCode.GetAddress();
+    
+    // Generate code for the loop body
+    mBody->Code(machineCode);
+    
+    // Generate code to evaluate the condition
+    mCondition->CodeEvaluate(machineCode);
+    
+    // Generate a conditional jump back to the start of the loop if condition is true
+    unsigned char* jumpAddress = machineCode.SkipIfNotZeroStack();
+    
+    // Save the address after the jump
+    unsigned char* endAddress = machineCode.GetAddress();
+    
+    // Set the jump offset to go back to the start of the loop body
+    machineCode.SetOffset(jumpAddress, (int)(bodyAddress - endAddress));
+}

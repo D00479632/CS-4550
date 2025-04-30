@@ -1,0 +1,27 @@
+void main() {
+    int x;
+    x = 1;
+
+    // Test 1: Basic do-while that executes multiple times
+    do {
+        cout << x << endl;
+        x = x + 1;
+    } while (x <= 3);
+
+    // Test 2: do-while that executes exactly once
+    do {
+        cout << 100 << endl;
+    } while (0);
+
+    // Test 3: Nested do-while
+    x = 1;
+    do {
+        int y;
+        y = 1;
+        do {
+            cout << y << endl;
+            y = y + 1;
+        } while (y <= x);
+        x = x + 1;
+    } while (x <= 2);
+} 

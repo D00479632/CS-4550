@@ -22,7 +22,9 @@ private:
     PlusEqualsStatementNode* PlusEqualsStatement(IdentifierNode* identifierNode);
     MinusEqualsStatementNode* MinusEqualsStatement(IdentifierNode* identifierNode);
     CoutStatementNode* CoutStatement();
-
+    IfStatementNode* IfStatement();
+    WhileStatementNode* WhileStatement();
+    DoWhileStatementNode* DoWhileStatement();
 
     // Expression Parsing Methods
     ExpressionNode* Expression();
@@ -39,10 +41,6 @@ private:
     IdentifierNode* Identifier();
     IntegerNode* Integer();
     
-    // New statement parsing If and While
-    IfStatementNode* IfStatement();
-    WhileStatementNode* WhileStatement();
-
     TokenClass Match(TokenType expectedType);
     void Error(const std::string& message);
 

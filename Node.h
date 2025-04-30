@@ -320,3 +320,15 @@ public:
     virtual void Interpret() { } // Does nothing when interpreted
     virtual void Code([[maybe_unused]] InstructionsClass &machineCode) { } // Problem 3: Code Generator - Does nothing when coded
 };
+
+class DoWhileStatementNode : public StatementNode {
+public:
+    DoWhileStatementNode(StatementNode* body, ExpressionNode* condition);
+    virtual ~DoWhileStatementNode();
+    virtual void Interpret();
+    virtual void Code(InstructionsClass &machineCode);
+
+private:
+    StatementNode* mBody;
+    ExpressionNode* mCondition;
+};
