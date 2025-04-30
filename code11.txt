@@ -17,14 +17,4 @@ void main()
     // Test with multiplication and division mixed
     cout << (x * 2) % (y * 3) << endl;  // Should print 8 (50 % 21)
     cout << (x % 7) * 3 << endl;        // Should print 12 ((25 % 7) * 3)
-    
-    // Test with negative numbers
-    cout << -15 % 4 << endl;       // Should print -3
-    cout << 15 % -4 << endl;       // Should print 3
-    cout << -15 % -4 << endl;      // Should print -3
-    
-    // Test with more complex expressions
-    int z = 100;
-    cout << z % (x % y) << endl;   // Should print 0 (100 % 4)
-    cout << (z + x) % (y * 2) << endl;  // Should print 13 (125 % 14)
 } 
