@@ -47,6 +47,7 @@ StateMachineClass::StateMachineClass() {
     mLegalMoves[ASSIGNMENT_STATE][EQUAL_CHAR] = EQUAL_STATE;
     mLegalMoves[PLUS_STATE][EQUAL_CHAR] = PLUS_EQUAL_STATE;
     mLegalMoves[MINUS_STATE][EQUAL_CHAR] = MINUS_EQUAL_STATE;
+    mLegalMoves[TIMES_STATE][STAR_CHAR] = POWER_STATE;  // Add transition for **
 
     // TODO: something is not working with my short comments it comments
     // everything after the // no matter if there is a return or not
@@ -112,6 +113,7 @@ StateMachineClass::StateMachineClass() {
     mCorrespondingTokenTypes[PLUS_EQUAL_STATE] = PLUSEQUAL_TOKEN;
     mCorrespondingTokenTypes[MINUS_EQUAL_STATE] = MINUSEQUAL_TOKEN;
     mCorrespondingTokenTypes[MOD_STATE] = MOD_TOKEN;  // Add modulo token type
+    mCorrespondingTokenTypes[POWER_STATE] = POWER_TOKEN;  // Add power token type
 }
 
 MachineState StateMachineClass::UpdateState(char currentCharacter, TokenType & previousTokenType) {

@@ -233,22 +233,15 @@ ExpressionNode * ParserClass::TimesDivide() {
 }
 
 ExpressionNode * ParserClass::Power() {
-    ExpressionNode *current = Factor();
+    ExpressionNode *left = Factor();
     TokenType tt = mScanner->PeekNextToken().GetTokenType();
-    if (tt == TIMES_TOKEN) {  // Check for first *
+    if (tt == POWER_TOKEN) {
         Match(tt);
-        tt = mScanner->PeekNextToken().GetTokenType();
-        if (tt == TIMES_TOKEN) {  // Check for second *
-            Match(tt);
-            // For right associativity, recursively evaluate the right side first
-            ExpressionNode* right = Power();
-            current = new PowerNode(current, right);  // Then combine with left
-        } else {
-            // If we only see one *, treat it as multiplication
-            current = new TimesNode(current, Power());
-        }
+        // For right associativity, recursively evaluate the right side first
+        ExpressionNode* right = Power();
+        return new PowerNode(left, right);
     }
-    return current;
+    return left;
 }
 
 ExpressionNode * ParserClass::Factor() {
