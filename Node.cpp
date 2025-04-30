@@ -712,13 +712,18 @@ void DoWhileStatementNode::Code(InstructionsClass &machineCode) {
     // Generate code to evaluate the condition
     mCondition->CodeEvaluate(machineCode);
     
-    // Generate an unconditional jump back to the start if condition is non-zero
+    // If condition is zero, skip the jump back (exit loop)
+    unsigned char* skipJumpAddress = machineCode.SkipIfZeroStack();
+    
+    // Generate unconditional jump back to start of loop
     unsigned char* jumpBackAddress = machineCode.Jump();
     
-    // Save the address after the jump
+    // Save the address after both jumps
     unsigned char* endAddress = machineCode.GetAddress();
     
+    // Set the offset for the conditional skip
+    machineCode.SetOffset(skipJumpAddress, (int)(endAddress - jumpBackAddress));
+    
     // Set the offset for the jump back to the start
-    // We jump back if condition was non-zero
     machineCode.SetOffset(jumpBackAddress, (int)(bodyAddress - endAddress));
 }
