@@ -240,6 +240,16 @@ public:
     virtual void CodeEvaluate(InstructionsClass &machineCode);
 };
 
+class PowerNode : public BinaryOperatorNode {
+public:
+    PowerNode(ExpressionNode* left, ExpressionNode* right);
+    virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode) {
+        // Not implemented for coding, only for interpreting
+        throw std::runtime_error("PowerNode::CodeEvaluate not implemented");
+    }
+};
+
 class LessNode : public BinaryOperatorNode {
 public:
     LessNode(ExpressionNode* left, ExpressionNode* right);

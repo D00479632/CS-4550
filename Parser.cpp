@@ -214,18 +214,37 @@ ExpressionNode * ParserClass::PlusMinus() {
 }
 
 ExpressionNode * ParserClass::TimesDivide() {
+    ExpressionNode *current = Power();
+    while (true) {
+        TokenType tt = mScanner->PeekNextToken().GetTokenType();
+        if (tt == TIMES_TOKEN) {
+            Match(tt);
+            current = new TimesNode(current, Power());
+        } else if (tt == DIVIDE_TOKEN) {
+            Match(tt);
+            current = new DivideNode(current, Power());
+        } else if (tt == MOD_TOKEN) {
+            Match(tt);
+            current = new ModNode(current, Power());
+        } else {
+            return current;
+        }
+    }
+}
+
+ExpressionNode * ParserClass::Power() {
     ExpressionNode *current = Factor();
     while (true) {
         TokenType tt = mScanner->PeekNextToken().GetTokenType();
         if (tt == TIMES_TOKEN) {
             Match(tt);
-            current = new TimesNode(current, Factor());
-        } else if (tt == DIVIDE_TOKEN) {
-            Match(tt);
-            current = new DivideNode(current, Factor());
-        } else if (tt == MOD_TOKEN) {
-            Match(tt);
-            current = new ModNode(current, Factor());
+            if (mScanner->PeekNextToken().GetTokenType() == TIMES_TOKEN) {
+                Match(tt);
+                current = new PowerNode(current, Power());
+            } else {
+                mScanner->PutBackToken();
+                return current;
+            }
         } else {
             return current;
         }

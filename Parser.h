@@ -34,7 +34,7 @@ private:
     ExpressionNode* Relational();
     ExpressionNode* PlusMinus();
     ExpressionNode* TimesDivide();
-    // Exponent will go here
+    ExpressionNode* Power();
     ExpressionNode* Factor();
     
     // Helper Methods

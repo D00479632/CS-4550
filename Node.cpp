@@ -357,6 +357,20 @@ void ModNode::CodeEvaluate(InstructionsClass &machineCode) {
     machineCode.PopPopModPush();
 }
 
+PowerNode::PowerNode(ExpressionNode* left, ExpressionNode* right)
+    : BinaryOperatorNode(left, right) {
+}
+
+int PowerNode::Evaluate() {
+    int base = mLeft->Evaluate();
+    int exponent = mRight->Evaluate();
+    int result = 1;
+    for(int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
+}
+
 // Comparison Nodes implementations
 LessNode::LessNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {

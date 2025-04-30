@@ -1,0 +1,20 @@
+void main()
+{
+    // Basic power operations
+    cout << 2 ** 3 << endl;        // Should print 8
+    cout << 3 * 2 ** 3 << endl;    // Should print 24 (not 216)
+    cout << 3 ** 2 ** 3 << endl;   // Should print 729 (3^(2^3))
+    
+    // Test with variables
+    int x = 2;
+    int y = 3;
+    cout << x ** y << endl;        // Should print 8
+    
+    // Test with expressions
+    cout << (x + 1) ** y << endl;  // Should print 27 (3^3)
+    cout << x ** (y + 1) << endl;  // Should print 16 (2^4)
+    
+    // Test mixed with other operators
+    cout << 2 * 3 ** 2 << endl;    // Should print 18 (2 * 9)
+    cout << 12 / 2 ** 2 << endl;   // Should print 3 (12 / 4)
+} 
