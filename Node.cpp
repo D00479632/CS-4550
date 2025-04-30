@@ -343,6 +343,20 @@ void DivideNode::CodeEvaluate(InstructionsClass &machineCode) {
     machineCode.PopPopDivPush();
 }
 
+ModNode::ModNode(ExpressionNode* left, ExpressionNode* right)
+    : BinaryOperatorNode(left, right) {
+}
+
+int ModNode::Evaluate() {
+    return mLeft->Evaluate() % mRight->Evaluate();
+}
+
+void ModNode::CodeEvaluate(InstructionsClass &machineCode) {
+    mLeft->CodeEvaluate(machineCode);
+    mRight->CodeEvaluate(machineCode);
+    machineCode.PopPopModPush();
+}
+
 // Comparison Nodes implementations
 LessNode::LessNode(ExpressionNode* left, ExpressionNode* right)
     : BinaryOperatorNode(left, right) {

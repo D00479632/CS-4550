@@ -223,6 +223,9 @@ ExpressionNode * ParserClass::TimesDivide() {
         } else if (tt == DIVIDE_TOKEN) {
             Match(tt);
             current = new DivideNode(current, Factor());
+        } else if (tt == MOD_TOKEN) {
+            Match(tt);
+            current = new ModNode(current, Factor());
         } else {
             return current;
         }

@@ -188,6 +188,16 @@ void InstructionsClass::PopPopDivPush()
     Encode(PUSH_EAX);
 }
 
+void InstructionsClass::PopPopModPush()
+{
+    Encode(POP_EBX);
+    Encode(POP_EAX);
+    Encode(CDQ); // Necessary to clear the EDX before the divide.
+    Encode(DIV_EAX_EBX1); // Divide EAX by EBX. Result in EAX, remainder in EDX.
+    Encode(DIV_EAX_EBX2);
+    Encode(PUSH_EDX); // Push remainder (EDX) instead of quotient (EAX)
+}
+
 // Problem 10 - Pop two values, add, and push result
 void InstructionsClass::PopPopAddPush()
 {

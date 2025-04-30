@@ -27,6 +27,7 @@ public:
     
     // Problem 9-10 - Arithmetic operators
     void PopPopDivPush();
+    void PopPopModPush();
     void PopPopAddPush();
     void PopPopSubPush();
     void PopPopMulPush();

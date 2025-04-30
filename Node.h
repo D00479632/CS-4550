@@ -230,7 +230,14 @@ class DivideNode : public BinaryOperatorNode {
 public:
     DivideNode(ExpressionNode* left, ExpressionNode* right);
     virtual int Evaluate();
-    virtual void CodeEvaluate(InstructionsClass &machineCode); // Problem 3: Code Generator
+    virtual void CodeEvaluate(InstructionsClass &machineCode);
+};
+
+class ModNode : public BinaryOperatorNode {
+public:
+    ModNode(ExpressionNode* left, ExpressionNode* right);
+    virtual int Evaluate();
+    virtual void CodeEvaluate(InstructionsClass &machineCode);
 };
 
 class LessNode : public BinaryOperatorNode {
