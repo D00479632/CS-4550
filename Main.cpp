@@ -59,7 +59,7 @@ void TestParserOutput() {
 
 void TestInterpreter() {
     std::cout << "Running Interpreter Test...\n";
-    ScannerClass scanner("code8.txt");
+    ScannerClass scanner("code9.txt");
     SymbolTableClass symbolTable;
     ParserClass parser(&scanner, &symbolTable);
 
@@ -82,7 +82,7 @@ int main() {
     
     // Problem 14: Incremental testing of code generator
     std::cout << "\nTesting coding:\n";
-    CodeAndExecute("code8.txt");
+    CodeAndExecute("code9.txt");
     return 0;
 }
 

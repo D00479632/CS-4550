@@ -548,18 +548,23 @@ void StatementGroupNode::Code(InstructionsClass &machineCode) {
     }
 }
 
-IfStatementNode::IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement)
-    : mCondition(condition), mThenStatement(thenStatement) {
+IfStatementNode::IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement, StatementNode* elseStatement)
+    : mCondition(condition), mThenStatement(thenStatement), mElseStatement(elseStatement) {
 }
 
 IfStatementNode::~IfStatementNode() {
     delete mCondition;
     delete mThenStatement;
+    if (mElseStatement) {
+        delete mElseStatement;
+    }
 }
 
 void IfStatementNode::Interpret() {
     if (mCondition->Evaluate() != 0) {
         mThenStatement->Interpret();
+    } else if (mElseStatement) {
+        mElseStatement->Interpret();
     }
 }
 
@@ -570,20 +575,39 @@ void IfStatementNode::Code(InstructionsClass &machineCode) {
     
     // Generate a conditional jump instruction (initially with 0 offset)
     // and save the address where we need to fill in the offset later
-    unsigned char* insertAddress = machineCode.SkipIfZeroStack();
+    unsigned char* skipThenAddress = machineCode.SkipIfZeroStack();
     
-    // Save the current address (start of the statement body)
-    unsigned char* address1 = machineCode.GetAddress();
+    // Save the current address (start of the then statement body)
+    unsigned char* thenAddress = machineCode.GetAddress();
     
-    // Generate code for the statement body
+    // Generate code for the then statement body
     mThenStatement->Code(machineCode);
     
-    // Save the address after the statement body
-    unsigned char* address2 = machineCode.GetAddress();
-    
-    // Calculate and set the correct jump offset
-    // This is how many bytes to skip if the condition is false
-    machineCode.SetOffset(insertAddress, (int)(address2 - address1));
+    if (mElseStatement) {
+        // If there's an else clause, we need to jump over it after executing the then clause
+        unsigned char* skipElseAddress = machineCode.Jump();
+        
+        // Save the address after the jump (start of the else statement)
+        unsigned char* elseAddress = machineCode.GetAddress();
+        
+        // Set the offset for the conditional jump to skip the then clause
+        // This jumps to the else clause if the condition is false
+        machineCode.SetOffset(skipThenAddress, (int)(elseAddress - thenAddress));
+        
+        // Generate code for the else statement body
+        mElseStatement->Code(machineCode);
+        
+        // Save the address after the else statement
+        unsigned char* endAddress = machineCode.GetAddress();
+        
+        // Set the offset for the unconditional jump after the then clause
+        // This jumps over the else clause after executing the then clause
+        machineCode.SetOffset(skipElseAddress, (int)(endAddress - elseAddress));
+    } else {
+        // If there's no else clause, just set the offset to skip the then clause
+        unsigned char* endAddress = machineCode.GetAddress();
+        machineCode.SetOffset(skipThenAddress, (int)(endAddress - thenAddress));
+    }
 }
 
 WhileStatementNode::WhileStatementNode(ExpressionNode* condition, StatementNode* body)

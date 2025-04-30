@@ -277,7 +277,7 @@ public:
 
 class IfStatementNode : public StatementNode {
 public:
-    IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement);
+    IfStatementNode(ExpressionNode* condition, StatementNode* thenStatement, StatementNode* elseStatement = nullptr);
     virtual ~IfStatementNode();
     virtual void Interpret();
     virtual void Code(InstructionsClass &machineCode); // Problem 3: Code Generator
@@ -285,6 +285,7 @@ public:
 private:
     ExpressionNode* mCondition;
     StatementNode* mThenStatement;
+    StatementNode* mElseStatement;
 };
 
 class WhileStatementNode : public StatementNode {

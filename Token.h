@@ -19,7 +19,7 @@ enum TokenType {
     // Other Token Types:
     IDENTIFIER_TOKEN, INTEGER_TOKEN, BAD_TOKEN, ENDFILE_TOKEN, ENDL_TOKEN, 
     // Add new tokens
-    IF_TOKEN, WHILE_TOKEN,
+    IF_TOKEN, ELSE_TOKEN, WHILE_TOKEN,
     AND_TOKEN, OR_TOKEN,  // For '&&' and '||' operators
 };
 
@@ -31,7 +31,7 @@ const std::string gTokenTypeNames[] = {
 "PLUSEQUAL", "MINUSEQUAL",
 "SEMICOLON", "LPAREN", "RPAREN", "LCURLY", "RCURLY",
 "IDENTIFIER", "INTEGER", "BAD", "ENDFILE", "ENDL",
-"IF", "WHILE",
+"IF", "ELSE", "WHILE",
 "AND", "OR"
 };
 

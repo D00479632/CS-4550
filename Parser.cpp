@@ -262,6 +262,15 @@ IfStatementNode* ParserClass::IfStatement() {
     ExpressionNode* condition = Expression();
     Match(RPAREN_TOKEN);
     StatementNode* thenStatement = Statement();
+    
+    // Check for optional else clause
+    TokenType tt = mScanner->PeekNextToken().GetTokenType();
+    if (tt == ELSE_TOKEN) {
+        Match(ELSE_TOKEN);
+        StatementNode* elseStatement = Statement();
+        return new IfStatementNode(condition, thenStatement, elseStatement);
+    }
+    
     return new IfStatementNode(condition, thenStatement);
 }
 

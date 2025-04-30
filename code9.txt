@@ -1,0 +1,38 @@
+void main() {
+    int x;
+    int y;
+    x = 5;
+    y = 10;
+
+    // Test 1: Basic if/else with true condition
+    if (x < y)
+        cout << 1 << endl;
+    else
+        cout << 0 << endl;
+
+    // Test 2: Basic if/else with false condition
+    if (x > y)
+        cout << 0 << endl;
+    else
+        cout << 1 << endl;
+
+    // Test 3: Nested if/else
+    if (x == 5) {
+        if (y == 10)
+            cout << 1 << endl;
+        else
+            cout << 0 << endl;
+    } else {
+        cout << 0 << endl;
+    }
+
+    // Test 4: If without else
+    if (x == 5)
+        cout << 1 << endl;
+
+    // Test 5: Complex condition
+    if (x < y && x == 5)
+        cout << 1 << endl;
+    else
+        cout << 0 << endl;
+} 
